@@ -96,6 +96,11 @@ export default function Register() {
               </button>
             </div>
           </form>
+          <hr />
+          Already have an account?{" "}
+          <a href="/login" className="mx-3">
+            Login here
+          </a>
         </div>
       </div>
     </div>

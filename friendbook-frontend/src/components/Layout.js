@@ -12,9 +12,11 @@ export default function Layout() {
           <div className="col-2">
             <LeftSidebar />
           </div>
+          {/* <div className="col-1"></div> */}
           <div className="col-8">
             <Newsfeed />
           </div>
+          {/* <div className="col-1"></div> */}
           <div className="col-2">
             <RightSidebar />
           </div>

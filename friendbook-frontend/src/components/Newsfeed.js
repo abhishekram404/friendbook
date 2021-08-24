@@ -4,7 +4,7 @@ import Post from "./Post";
 
 export default function Newsfeed() {
   return (
-    <div className="container-fluid">
+    <div className="container w-75">
       <CreatePost />
       <Post />
       <Post />
