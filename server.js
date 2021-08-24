@@ -1,7 +1,19 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const userRoute = require("./routes/user.routes");
+const bodyParser = require("body-parser");
 const app = express();
+app.use(bodyParser.json());
+dotenv.config();
 
-app.get("/", (req, res) => {
-  res.send("Hello world!");
-});
+mongoose.connect(
+  process.env.MONGO_URI,
+  { useUnifiedTopology: true, useNewUrlParser: true },
+  () => {
+    console.log("Connected to DB");
+  }
+);
+
+app.use("/api/user", userRoute);
 app.listen(4000);
