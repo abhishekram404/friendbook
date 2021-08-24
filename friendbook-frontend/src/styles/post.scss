@@ -1,0 +1,84 @@
+@import "./global.scss";
+
+.post {
+  border-radius: 20px;
+  .card-body {
+    .card-title {
+      display: flex;
+      align-items: flex-start;
+      .avatar {
+        height: 55px;
+        width: 55px;
+      }
+      .user-details {
+        flex: 1;
+        margin: 2px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        // align-items: center;
+
+        .privacy {
+          display: flex;
+          align-items: center;
+          .privacy-icon {
+            font-size: 0.9rem;
+            color: rgb(49, 49, 49);
+            //   margin: 0 15px;
+          }
+        }
+
+        a {
+          text-decoration: none;
+          color: $black;
+          font-size: 1.3rem;
+        }
+      }
+      .options-btn {
+        @include flex-center;
+        outline: none;
+        border: none;
+      }
+    }
+    hr {
+      margin: 0;
+      background-color: $lightGrey;
+    }
+  }
+  .post-content {
+    // margin: 0;
+    // padding: 10px 0;
+
+    .post-text {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.3rem;
+      color: rgb(44, 44, 44);
+    }
+    .post-image {
+      > img {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+      }
+    }
+  }
+  .engagement-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+    .buttons {
+      @include flex-center;
+      flex: 1;
+      margin: 5px;
+      // background-color: $platinum;
+      padding: 5px 0px;
+      &:not(:last-child) {
+        border-right: 1px solid $lightGrey;
+      }
+      > * {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}

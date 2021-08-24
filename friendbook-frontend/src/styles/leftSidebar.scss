@@ -1,0 +1,12 @@
+@import "./global.scss";
+// @import "./layout.scss";
+.leftSidebar {
+  border-right: 1px solid rgba($color: $lightGrey, $alpha: 1);
+  height: 100%;
+  .title {
+    position: sticky;
+    top: 0;
+    background-color: $platinum;
+    border-bottom: 1px solid $lightGrey;
+  }
+}

@@ -1,0 +1,14 @@
+@import "./global.scss";
+
+.rightSidebar {
+  border-left: 1px solid rgba($lightGrey, 1);
+  height: 100vh;
+  overflow: scroll;
+
+  .title {
+    position: sticky;
+    top: 0;
+    background-color: $platinum;
+    border-bottom: 1px solid $lightGrey;
+  }
+}

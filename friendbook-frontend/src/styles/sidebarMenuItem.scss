@@ -1,0 +1,45 @@
+@import "./global.scss";
+
+.links {
+  border-radius: 35px;
+  text-decoration: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 15px;
+  > .icon {
+    font-size: 1.8rem;
+  }
+
+  > .avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  > .userStatus {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    // justify-content: space-between;
+    margin: 0 10px;
+    .active-status {
+      font-size: 0.8rem;
+    }
+  }
+  > .active-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgb(160, 158, 158);
+
+    // justify-self: flex-end;
+  }
+  > .online {
+    background-color: #02a802;
+  }
+
+  > span {
+    font-size: 1.2rem;
+    margin: 0 10px;
+  }
+}

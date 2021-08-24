@@ -1,0 +1,54 @@
+@import "./global.scss";
+
+.navbar {
+  position: sticky;
+  top: 0;
+  background-color: $white;
+  border-bottom: 1px solid $lightGrey;
+  z-index: 1000;
+  .navbar-brand {
+    font-size: 2rem;
+    color: $black;
+  }
+
+  .nav-link {
+    color: $black;
+    > * {
+      font-size: 1.9rem;
+    }
+
+    &:hover {
+      color: rgba($color: $lightGrey, $alpha: 0.9);
+    }
+  }
+}
+
+.options-dropdown {
+  width: 250px;
+  // height: 150px;
+  transition: 0.3s;
+  position: absolute;
+  z-index: 100;
+  background-color: white;
+  right: 10px;
+  border-radius: 10px;
+  margin: 10px 0;
+  animation: dropdown 0.3s 1;
+  > div {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      background-color: $platinum;
+    }
+  }
+}
+
+@keyframes dropdown {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

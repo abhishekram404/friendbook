@@ -1,0 +1,12 @@
+$primaryColor: #f15025;
+$primaryColorLight: #f47351;
+$white: #ffffff;
+$platinum: #e6e8e6;
+$lightGrey: #ced0ce;
+$black: #191919;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
