@@ -1,6 +1,9 @@
 const User = require("../models/user.model");
-const validator = require("../middlewares/signupValidator");
+const signupValidator = require("../middlewares/signupValidator");
+const loginValidator = require("../middlewares/loginValidator");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 exports.all = async (req, res) => {
   const users = await User.find({}).select("-password");
   res.send(users);
@@ -9,7 +12,7 @@ exports.all = async (req, res) => {
 exports.register = async (req, res) => {
   // console.log(req.body);
   try {
-    const { error } = await validator(req.body);
+    const { error } = await signupValidator(req.body);
 
     if (error)
       return res.status(400).send({
@@ -103,6 +106,84 @@ exports.register = async (req, res) => {
         userId: user._id,
       },
     });
+  } catch (err) {
+    res.status(500).send({
+      error: {
+        status: 500,
+        message: err.message,
+        detail: "Something went wrong !!! \n Please try again.",
+      },
+      response: {},
+    });
+  }
+};
+
+exports.login = async (req, res) => {
+  try {
+    const { error } = await loginValidator(req.body);
+
+    if (error)
+      return res.status(400).send({
+        error: {
+          status: 400,
+          message: error.details[0].message,
+          detail: "The form data is invalid.",
+        },
+        response: {},
+      });
+
+    const { email, password } = await req.body;
+
+    const foundUser = await User.findOne({ email: email.trim().toLowerCase() });
+
+    if (!foundUser) {
+      return res.status(404).send({
+        error: {
+          status: 404,
+          message: "Wrong email/password",
+          detail: "Sit back and try to remember your email/password.",
+        },
+        response: {},
+      });
+    }
+
+    const isPassCorrect = await bcrypt.compare(password, foundUser.password);
+
+    if (!isPassCorrect) {
+      return res.status(404).send({
+        error: {
+          status: 404,
+          message: "Wrong email/password",
+          detail: "Sit back and try to remember your email/password.",
+        },
+        response: {},
+      });
+    }
+
+    const token = await jwt.sign(
+      {
+        _id: foundUser._id,
+        username: foundUser.username,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+
+    res
+      .cookie("jwt", token, {
+        secure: false,
+        httpOnly: true,
+        maxAge: 2 * 60 * 60 * 10000,
+      })
+      .send({
+        error: {},
+        response: {
+          userId: foundUser._id,
+          jwt: token,
+        },
+      });
   } catch (err) {
     res.status(500).send({
       error: {

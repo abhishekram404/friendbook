@@ -7,6 +7,7 @@ import "./styles/global.scss";
 import { Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
 import history from "./history";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Navbar />
         <Route path="/" exact component={Layout} />
         <Route path="/home" exact component={Layout} />
+        <Route path="/profile" exact component={Profile} />
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
       </Router>

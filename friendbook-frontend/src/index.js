@@ -8,6 +8,8 @@ import store from "./redux/store";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:4000/api/";
+axios.defaults.withCredentials = true;
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

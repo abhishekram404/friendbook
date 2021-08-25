@@ -35,3 +35,18 @@ const register_failed = (error) => {
     payload: error,
   };
 };
+
+export const send_login_request = (formData) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post("/user/login", formData);
+      const { error, response } = await data;
+
+      console.log("error :", error);
+      console.log("response :", response);
+    } catch (err) {
+      console.log(err.response.data?.error);
+      dispatch(register_failed(err?.response?.data?.error));
+    }
+  };
+};

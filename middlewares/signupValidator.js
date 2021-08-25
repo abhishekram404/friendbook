@@ -1,5 +1,5 @@
 const Joi = require("joi");
-module.exports = validator = (data) => {
+module.exports = signupValidator = (data) => {
   const schema = Joi.object({
     fullName: Joi.string().min(3).max(60).required(),
     username: Joi.string().min(3).max(20).required(),

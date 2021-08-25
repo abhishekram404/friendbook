@@ -12,6 +12,7 @@ export const userReducer = (initialState = { error: {}, data: {} }, action) => {
         data: {},
         error: action.payload,
       };
+
     default:
       return initialState;
   }
