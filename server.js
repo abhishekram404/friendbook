@@ -21,4 +21,5 @@ mongoose.connect(
 );
 
 app.use("/api/user", userRoute);
+// app.use("/api/", userRoute);
 app.listen(4000);
