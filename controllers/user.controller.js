@@ -98,14 +98,33 @@ exports.register = async (req, res) => {
       dob,
       password: hashedPassword,
     });
-    res.status(201).send({
-      error: {},
-      response: {
-        status: 201,
-        message: "User registered successfully.",
-        userId: user._id,
+
+    const token = await jwt.sign(
+      {
+        _id: user._id,
+        username: user.username,
       },
-    });
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+
+    res
+      .cookie("jwt", token, {
+        httpOnly: true,
+        secure: false,
+        maxAge: 2 * 60 * 60 * 10000,
+      })
+      .status(201)
+      .send({
+        error: {},
+        response: {
+          status: 201,
+          message: "User registered successfully.",
+          userId: user._id,
+        },
+      });
   } catch (err) {
     res.status(500).send({
       error: {
@@ -177,10 +196,36 @@ exports.login = async (req, res) => {
         httpOnly: true,
         maxAge: 2 * 60 * 60 * 10000,
       })
+      .status(201)
       .send({
         error: {},
         response: {
           userId: foundUser._id,
+        },
+      });
+  } catch (err) {
+    res.status(500).send({
+      error: {
+        status: 500,
+        message: err.message,
+        detail: "Something went wrong !!! \n Please try again.",
+      },
+      response: {},
+    });
+  }
+};
+
+exports.logout = async (req, res) => {
+  try {
+    res
+      .clearCookie("jwt")
+      .status(200)
+      .send({
+        error: {},
+        response: {
+          status: 200,
+          message: "Logout successful.",
+          detail: "Thanks for using FriendBook 💜",
         },
       });
   } catch (err) {
