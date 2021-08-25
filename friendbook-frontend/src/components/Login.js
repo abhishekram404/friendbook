@@ -24,7 +24,7 @@ export default function Login() {
 
   return (
     <div className="container-fluid register-container m-0 p-4">
-      {Boolean(Object.keys(error).length) ? (
+      {Boolean(Object.keys(error).length) && (
         <div
           className="card d-inline-block shadow-lg align-items-center text-white bg-danger float-end"
           role="alert"
@@ -39,23 +39,6 @@ export default function Login() {
             ></button>
           </div>
         </div>
-      ) : (
-        Boolean(Object.keys(data).length) && (
-          <div
-            className="card d-inline-block shadow-lg align-items-center text-white bg-success float-end"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-          >
-            <div className="d-flex justify-content-between align-items-center">
-              <div className="toast-body">{data.message}</div>
-              <button
-                type="button"
-                class="btn-close btn-close-white m-3 "
-              ></button>
-            </div>
-          </div>
-        )
       )}
 
       <div className="card  register w-50 mx-auto p-2 px-3">

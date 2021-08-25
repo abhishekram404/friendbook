@@ -7,7 +7,10 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
 import "../styles/navbar.scss";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/actions/userActions";
 export default function Navbar() {
+  const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
   const toggleOptionsDropdown = () => {
     setOpen(!isOpen);
@@ -37,13 +40,30 @@ export default function Navbar() {
       </nav>
       {isOpen && (
         <ul className="options-dropdown list-group  shadow">
-          <div className="list-group-item py-3">
+          <div
+            className="list-group-item py-3"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
             <SettingsIcon /> &nbsp; &nbsp; Settings
           </div>
-          <div className="list-group-item py-3">
+          <div
+            className="list-group-item py-3"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
             <Brightness2Icon /> &nbsp; &nbsp; Toggle Dark Mode
           </div>
-          <div className="list-group-item py-3">
+          <div
+            className="list-group-item py-3"
+            role="button"
+            onClick={() => {
+              dispatch(logout());
+              setOpen(false);
+            }}
+          >
             <ExitToAppIcon /> &nbsp; &nbsp; Logout
           </div>
         </ul>

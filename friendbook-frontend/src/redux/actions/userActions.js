@@ -70,3 +70,30 @@ const login_failed = (error) => {
     payload: error,
   };
 };
+
+export const logout = () => {
+  return async (dispatch) => {
+    try {
+      let { data } = await axios.post("/user/logout");
+      let { error, response } = data;
+      if (Object.keys(error).length !== 0) {
+        dispatch({
+          type: "LOGOUT_FAILED",
+          payload: error,
+        });
+        return;
+      }
+
+      dispatch({
+        type: "LOGOUT_SUCCESS",
+        payload: response,
+      });
+      history.push("/login");
+    } catch (err) {
+      dispatch({
+        type: "LOGOUT_FAILED",
+        payload: err?.response?.data?.error,
+      });
+    }
+  };
+};
