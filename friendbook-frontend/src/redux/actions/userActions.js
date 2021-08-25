@@ -42,11 +42,31 @@ export const send_login_request = (formData) => {
       const { data } = await axios.post("/user/login", formData);
       const { error, response } = await data;
 
-      console.log("error :", error);
-      console.log("response :", response);
+      if (Object.keys(error).length != 0) {
+        dispatch(login_failed(error));
+        return;
+      }
+
+      dispatch(login_successful(response));
+
+      history.push("/");
     } catch (err) {
       console.log(err.response.data?.error);
-      dispatch(register_failed(err?.response?.data?.error));
+      dispatch(login_failed(err?.response?.data?.error));
     }
+  };
+};
+
+const login_successful = (data) => {
+  return {
+    type: "LOGIN_SUCCESSFUL",
+    payload: data,
+  };
+};
+
+const login_failed = (error) => {
+  return {
+    type: "LOGIN_FAILED",
+    payload: error,
   };
 };

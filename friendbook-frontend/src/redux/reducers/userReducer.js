@@ -12,6 +12,18 @@ export const userReducer = (initialState = { error: {}, data: {} }, action) => {
         data: {},
         error: action.payload,
       };
+    case "LOGIN_SUCCESSFUL":
+      return {
+        ...initialState,
+        error: {},
+        data: action.payload,
+      };
+    case "LOGIN_FAILED":
+      return {
+        ...initialState,
+        data: {},
+        error: action.payload,
+      };
 
     default:
       return initialState;

@@ -181,7 +181,6 @@ exports.login = async (req, res) => {
         error: {},
         response: {
           userId: foundUser._id,
-          jwt: token,
         },
       });
   } catch (err) {
