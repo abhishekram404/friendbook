@@ -1,29 +1,139 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import "../styles/register.scss";
+import { send_register_request } from "../redux/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Register() {
+  const dispatch = useDispatch();
+  // const [email, setEmail] = useState("");
+  // const [fullName, setFullName] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [gender, setGender] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [confirm_password, setConfirmPassword] = useState("");
+  // const [dob, setDOB] = useState();
+
+  // let d = await axios.get("/user/all");
+  // console.log(d);
+
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    fullName: "",
+    gender: "",
+    password: "",
+    confirm_password: "",
+    dob: undefined,
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const { error, data } = useSelector((state) => state.user);
+
+  // const [isReadyToSubmit, setReadyToSubmit] = useState(true);
+  // const validatePassword = (p1, p2) => {
+  //   return p1.length >= 6 && p2.length >= 6 && p1 === p2;
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // if (!validatePassword(form.password, form.confirm_password)) {
+    //   setReadyToSubmit(false);
+    //   return;
+    // }
+
+    // setReadyToSubmit(true);
+
+    dispatch(send_register_request(form));
+  };
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <div className="container-fluid register-container m-0 p-4">
+      {Boolean(Object.keys(error).length) ? (
+        <div
+          className="card d-inline-block shadow-lg align-items-center text-white bg-danger float-end"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="toast-body">{error.message}</div>
+            <button
+              type="button"
+              class="btn-close btn-close-white m-3 "
+            ></button>
+          </div>
+        </div>
+      ) : (
+        Boolean(Object.keys(data).length) && (
+          <div
+            className="card d-inline-block shadow-lg align-items-center text-white bg-success float-end"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+          >
+            <div className="d-flex justify-content-between align-items-center">
+              <div className="toast-body">{data.message}</div>
+              <button
+                type="button"
+                class="btn-close btn-close-white m-3 "
+              ></button>
+            </div>
+          </div>
+        )
+      )}
       <div className="card  register w-50 mx-auto p-2 px-3">
         <div className="card-body">
           <div className="card-title">
             <h2 className="text-center pt-3 ">Register</h2>
           </div>
           <hr />
-          <form action="/">
+          <form action="/" onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="email">Email</label>
-              <input type="text" id="email" className="form-control my-1" />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="form-control my-1"
+                onChange={handleChange}
+                value={form.email}
+                required
+              />
             </div>
             <div className="mb-3">
               <label htmlFor="name">Full Name</label>
-              <input type="text" id="name" className="form-control my-1" />
+              <input
+                type="text"
+                id="name"
+                name="fullName"
+                className="form-control my-1"
+                onChange={handleChange}
+                value={form.fullName}
+                required
+              />
             </div>
 
             <div className="mb-3">
               <label htmlFor="username">Username</label>
-              <input type="text" id="username" className="form-control my-1" />
+              <input
+                type="text"
+                id="username"
+                name="username"
+                className="form-control my-1"
+                onChange={handleChange}
+                value={form.username}
+                required
+              />
             </div>
 
             <div className="mb-3">
@@ -36,6 +146,9 @@ export default function Register() {
                   name="gender"
                   value="male"
                   className=" form-check-input my-1"
+                  onChange={handleChange}
+                  required
+                  // value={form.gender}
                 />
                 <label htmlFor="male" className="form-check-label">
                   Male
@@ -48,28 +161,48 @@ export default function Register() {
                   name="gender"
                   value="female"
                   className=" form-check-input my-1"
+                  onChange={handleChange}
+                  required
+                  // value={form.gender}
                 />
                 <label htmlFor="female" className="form-check-label">
                   Female
                 </label>
               </div>
             </div>
-            <div className="mb-3">
+            <div className=" mb-3">
               <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                className="form-control my-1"
-              />
+              <div className="input-group">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  id="password"
+                  className="form-control my-1"
+                  onChange={handleChange}
+                  value={form.password}
+                  required
+                />
+                <button
+                  className="input-group-text my-1"
+                  id="password"
+                  onClick={() => {
+                    setShowPassword(!showPassword);
+                  }}
+                >
+                  {!showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </button>
+              </div>
             </div>
             <div className="mb-3">
-              <label htmlFor="password">Confirm Password</label>
+              <label htmlFor="confirm_password">Confirm Password</label>
               <input
-                type="password"
-                name="confirmPassword"
-                id="confirmPassword"
+                type={showPassword ? "text" : "password"}
+                name="confirm_password"
+                id="confirm_password"
+                onChange={handleChange}
                 className="form-control my-1"
+                value={form.confirm_password}
+                required
               />
             </div>
 
@@ -80,10 +213,12 @@ export default function Register() {
                 name="dob"
                 id="dob"
                 className="form-control mt-1"
+                onChange={handleChange}
+                value={form.dob}
               />
             </div>
 
-            <div className="buttons mt-4    ">
+            <div className="buttons mt-4">
               <Link to="/" className="cancel btn me-3">
                 Cancel
               </Link>
