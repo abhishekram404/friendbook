@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { send_login_request } from "../redux/actions/userActions";
 export default function Login() {
+  const dispatch = useDispatch();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(send_login_request(form));
+  };
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <div className="container-fluid register-container m-0 p-4">
       <div className="card  register w-50 mx-auto p-2 px-3">
@@ -9,10 +29,17 @@ export default function Login() {
             <h2 className="text-center pt-3 ">Login</h2>
           </div>
           <hr />
-          <form action="/">
+          <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="email">Email</label>
-              <input type="text" id="email" className="form-control my-1" />
+              <input
+                type="text"
+                id="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                className="form-control my-1"
+              />
             </div>
 
             <div className="mb-3">
@@ -21,6 +48,8 @@ export default function Login() {
                 type="password"
                 name="password"
                 id="password"
+                value={form.password}
+                onChange={handleChange}
                 className="form-control my-1"
               />
             </div>

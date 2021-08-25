@@ -2,7 +2,8 @@
 
 .layout {
   background-color: $platinum;
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: scroll;
 
   //   .row {
   //     height: 100%;
@@ -10,4 +11,10 @@
   //       height: 100%;
   //     }
   //   }
+  .row {
+    .newsfeed-col {
+      height: 100vh;
+      overflow-y: scroll;
+    }
+  }
 }

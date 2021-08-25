@@ -13,7 +13,7 @@ export default function Layout() {
             <LeftSidebar />
           </div>
           {/* <div className="col-1"></div> */}
-          <div className="col-8">
+          <div className="col-8 newsfeed-col">
             <Newsfeed />
           </div>
           {/* <div className="col-1"></div> */}
