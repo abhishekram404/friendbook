@@ -31,21 +31,6 @@ export default function RightSidebar() {
           />
         );
       })}
-
-      {/* 
-      <RightSidebarChatMenuItem
-        user={{ name: "Abhishek Ram", active: true, activeTime: null }}
-      />
-      <RightSidebarChatMenuItem
-        user={{ name: "Manoj Bastakoti", active: true, activeTime: null }}
-      />
-      <RightSidebarChatMenuItem
-        user={{ name: "Ayush Adhikari", active: false, activeTime: 2 }}
-      />
-
-      <RightSidebarChatMenuItem
-        user={{ name: "Bikram", active: true, activeTime: 10 }}
-      /> */}
     </div>
   );
 }

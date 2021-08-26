@@ -1,6 +1,5 @@
 import React from "react";
 import LeftSidebar from "./LeftSidebar";
-import Navbar from "./Navbar";
 import "../styles/layout.scss";
 import RightSidebar from "./RightSidebar";
 import Newsfeed from "./Newsfeed";

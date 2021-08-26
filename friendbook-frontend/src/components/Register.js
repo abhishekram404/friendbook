@@ -8,16 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function Register() {
   const dispatch = useDispatch();
-  // const [email, setEmail] = useState("");
-  // const [fullName, setFullName] = useState("");
-  // const [username, setUsername] = useState("");
-  // const [gender, setGender] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirm_password, setConfirmPassword] = useState("");
-  // const [dob, setDOB] = useState();
-
-  // let d = await axios.get("/user/all");
-  // console.log(d);
 
   const [form, setForm] = useState({
     username: "",
@@ -32,19 +22,8 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const { error, data } = useSelector((state) => state.user);
 
-  // const [isReadyToSubmit, setReadyToSubmit] = useState(true);
-  // const validatePassword = (p1, p2) => {
-  //   return p1.length >= 6 && p2.length >= 6 && p1 === p2;
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!validatePassword(form.password, form.confirm_password)) {
-    //   setReadyToSubmit(false);
-    //   return;
-    // }
-
-    // setReadyToSubmit(true);
 
     dispatch(send_register_request(form));
   };
@@ -148,7 +127,6 @@ export default function Register() {
                   className=" form-check-input my-1"
                   onChange={handleChange}
                   required
-                  // value={form.gender}
                 />
                 <label htmlFor="male" className="form-check-label">
                   Male
