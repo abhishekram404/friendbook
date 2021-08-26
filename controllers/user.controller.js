@@ -106,25 +106,28 @@ exports.register = async (req, res) => {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: process.env.MAX_AGE,
       }
     );
 
-    res
-      .cookie("jwt", token, {
-        httpOnly: true,
-        secure: false,
-        maxAge: 2 * 60 * 60 * 10000,
-      })
-      .status(201)
-      .send({
-        error: {},
-        response: {
-          status: 201,
-          message: "User registered successfully.",
-          userId: user._id,
-        },
-      });
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: false,
+      maxAge: process.env.MAX_AGE,
+    });
+    res.cookie("isAuth", true, {
+      secure: false,
+      httpOnly: false,
+      maxAge: process.env.MAX_AGE,
+    });
+    res.status(201).send({
+      error: {},
+      response: {
+        status: 201,
+        message: "User registered successfully.",
+        userId: user._id,
+      },
+    });
   } catch (err) {
     res.status(500).send({
       error: {
@@ -186,23 +189,26 @@ exports.login = async (req, res) => {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: process.env.MAX_AGE,
       }
     );
 
-    res
-      .cookie("jwt", token, {
-        secure: false,
-        httpOnly: true,
-        maxAge: 2 * 60 * 60 * 10000,
-      })
-      .status(201)
-      .send({
-        error: {},
-        response: {
-          userId: foundUser._id,
-        },
-      });
+    res.cookie("jwt", token, {
+      secure: false,
+      httpOnly: true,
+      maxAge: process.env.MAX_AGE,
+    });
+    res.cookie("isAuth", true, {
+      secure: false,
+      httpOnly: false,
+      maxAge: process.env.MAX_AGE,
+    });
+    res.status(201).send({
+      error: {},
+      response: {
+        userId: foundUser._id,
+      },
+    });
   } catch (err) {
     res.status(500).send({
       error: {
@@ -217,17 +223,34 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
   try {
-    res
-      .clearCookie("jwt")
-      .status(200)
-      .send({
-        error: {},
-        response: {
-          status: 200,
-          message: "Logout successful.",
-          detail: "Thanks for using FriendBook 💜",
-        },
-      });
+    res.clearCookie("jwt");
+    res.clearCookie("isAuth");
+    res.status(200).send({
+      error: {},
+      response: {
+        status: 200,
+        message: "Logout successful.",
+        detail: "Thanks for using FriendBook 💜",
+      },
+    });
+  } catch (err) {
+    res.status(500).send({
+      error: {
+        status: 500,
+        message: err.message,
+        detail: "Something went wrong !!! \n Please try again.",
+      },
+      response: {},
+    });
+  }
+};
+
+exports.user = async (req, res) => {
+  try {
+    const foundUser = await User.findById(req.authenticatedUser._id).select(
+      "-password"
+    );
+    return res.send(foundUser);
   } catch (err) {
     res.status(500).send({
       error: {

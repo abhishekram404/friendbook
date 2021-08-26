@@ -1,24 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import "../styles/register.scss";
 import { send_register_request } from "../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
-
+import history from "../history";
+import { send_login_request } from "../redux/actions/userActions";
 export default function Register() {
   const dispatch = useDispatch();
-  // const [email, setEmail] = useState("");
-  // const [fullName, setFullName] = useState("");
-  // const [username, setUsername] = useState("");
-  // const [gender, setGender] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirm_password, setConfirmPassword] = useState("");
-  // const [dob, setDOB] = useState();
-
-  // let d = await axios.get("/user/all");
-  // console.log(d);
-
+  const location = useLocation();
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -31,20 +22,10 @@ export default function Register() {
 
   const [showPassword, setShowPassword] = useState(false);
   const { error, data } = useSelector((state) => state.user);
-
-  // const [isReadyToSubmit, setReadyToSubmit] = useState(true);
-  // const validatePassword = (p1, p2) => {
-  //   return p1.length >= 6 && p2.length >= 6 && p1 === p2;
-  // };
+  const { isUserLoggedIn } = data;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!validatePassword(form.password, form.confirm_password)) {
-    //   setReadyToSubmit(false);
-    //   return;
-    // }
-
-    // setReadyToSubmit(true);
 
     dispatch(send_register_request(form));
   };
@@ -55,6 +36,14 @@ export default function Register() {
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      history.push(
+        location.state?.prevLocation ? location.state?.prevLocation : "/"
+      );
+    }
+  });
 
   return (
     <div className="container-fluid register-container m-0 p-4">
@@ -148,7 +137,6 @@ export default function Register() {
                   className=" form-check-input my-1"
                   onChange={handleChange}
                   required
-                  // value={form.gender}
                 />
                 <label htmlFor="male" className="form-check-label">
                   Male

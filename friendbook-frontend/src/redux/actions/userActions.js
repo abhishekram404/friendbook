@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from "../../history";
+import Cookies from "js-cookie";
 export const send_register_request = (formData) => {
   return async (dispatch) => {
     try {
@@ -95,5 +96,41 @@ export const logout = () => {
         payload: err?.response?.data?.error,
       });
     }
+  };
+};
+
+export const check_is_logged_in = () => {
+  return async (dispatch) => {
+    try {
+      const isUserLoggedIn = await Cookies.get("isUserLoggedIn");
+
+      console.log("inside is_logged_in");
+
+      if (isUserLoggedIn) {
+        dispatch(user_logged_in());
+        return;
+      }
+      dispatch(user_not_logged_in());
+    } catch (err) {
+      dispatch(user_not_logged_in());
+    }
+  };
+};
+
+const user_logged_in = () => {
+  return {
+    type: "LOGGED_IN",
+    payload: {
+      isUserLoggedIn: true,
+    },
+  };
+};
+
+const user_not_logged_in = () => {
+  return {
+    type: "NOT_LOGGED_IN",
+    payload: {
+      isUserLoggedIn: false,
+    },
   };
 };

@@ -1,14 +1,18 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import history from "../history";
 import { send_login_request } from "../redux/actions/userActions";
 export default function Login() {
+  const location = useLocation();
   const dispatch = useDispatch();
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
   const { error, data } = useSelector((state) => state.user);
+
+  const { isUserLoggedIn } = data;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,6 +25,14 @@ export default function Login() {
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      history.push(
+        location.state?.prevLocation ? location.state?.prevLocation : "/"
+      );
+    }
+  });
 
   return (
     <div className="container-fluid register-container m-0 p-4">

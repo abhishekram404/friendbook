@@ -24,7 +24,7 @@ export const userReducer = (initialState = { error: {}, data: {} }, action) => {
         data: {},
         error: action.payload,
       };
-    case "LOGOUT_SUCCESSFUL":
+    case "LOGOUT_SUCCESS":
       return {
         ...initialState,
         error: {},
@@ -32,9 +32,25 @@ export const userReducer = (initialState = { error: {}, data: {} }, action) => {
       };
     case "LOGOUT_FAILED":
       return {
-        ...initialState,
         data: {},
         error: action.payload,
+      };
+
+    case "LOGGED_IN":
+      return {
+        data: {
+          ...initialState.data,
+          isUserLoggedIn: true,
+        },
+        error: {},
+      };
+    case "NOT_LOGGED_IN":
+      return {
+        data: {
+          ...initialState.data,
+          isUserLoggedIn: false,
+        },
+        error: { message: "User not logged in." },
       };
 
     default:
