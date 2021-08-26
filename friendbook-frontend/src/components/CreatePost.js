@@ -6,7 +6,7 @@ export default function CreatePost() {
   const { fullName } = useSelector((state) => state.userInfo.info);
   return (
     <>
-      <div className="create-post bg-light mx-0  my-3">
+      <div className="create-post container mx-auto mx-0  my-3">
         <h2 className="h2 pb-0">Create Post</h2>
         <hr />
         <form action="#">
@@ -34,7 +34,7 @@ export default function CreatePost() {
           </div>
         </form>
       </div>
-      <hr />
+      {/* <hr /> */}
     </>
   );
 }

@@ -7,6 +7,7 @@ export default function Newsfeed() {
   return (
     <div className="container w-75">
       <CreatePost />
+      <hr />
       <Post />
       <Post />
     </div>
