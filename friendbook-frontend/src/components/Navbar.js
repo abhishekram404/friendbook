@@ -9,8 +9,12 @@ import "../styles/navbar.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/actions/userActions";
+
 export default function Navbar() {
   const dispatch = useDispatch();
+  const { error, data } = useSelector((state) => state.user);
+  const { isUserLoggedIn } = data;
+
   const [isOpen, setOpen] = useState(false);
   const toggleOptionsDropdown = () => {
     setOpen(!isOpen);
@@ -23,19 +27,36 @@ export default function Navbar() {
           FriendBook
         </Link>
         <div className="navbarNav navbar-nav ms-auto">
-          <Link to="/" className="nav-link mx-3">
-            <HomeIcon />
-          </Link>
-          <Link to="/profile" className="nav-link mx-3">
-            <AccountCircleIcon />
-          </Link>
-          <button
-            href="/"
-            className="nav-link btn mx-3"
-            onClick={toggleOptionsDropdown}
-          >
-            <ArrowDropDownIcon />
-          </button>
+          {isUserLoggedIn ? (
+            <>
+              <Link to="/" className="nav-link mx-3">
+                <HomeIcon />
+              </Link>
+              <Link to="/profile" className="nav-link mx-3">
+                <AccountCircleIcon />
+              </Link>
+              <button
+                href="/"
+                className="nav-link btn mx-3"
+                onClick={toggleOptionsDropdown}
+              >
+                <ArrowDropDownIcon />
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="nav-link mx-2">
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="nav-link mx-3 btn text-light fw-bold"
+                id="register-btn"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </nav>
       {isOpen && (

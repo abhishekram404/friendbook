@@ -19,6 +19,7 @@ export default function Register() {
     confirm_password: "",
     dob: undefined,
   });
+  const [isErrorOpen, setErrorOpen] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
   const { error, data } = useSelector((state) => state.user);
@@ -26,7 +27,6 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     dispatch(send_register_request(form));
   };
 
@@ -44,42 +44,53 @@ export default function Register() {
       );
     }
   });
+  useEffect(() => {
+    if (Boolean(Object.keys(error).length)) {
+      setErrorOpen(true);
+    }
+  }, [error]);
 
   return (
-    <div className="container-fluid register-container m-0 p-4">
-      {Boolean(Object.keys(error).length) ? (
-        <div
-          className="card d-inline-block shadow-lg align-items-center text-white bg-danger float-end"
-          role="alert"
-          aria-live="assertive"
-          aria-atomic="true"
-        >
-          <div className="d-flex justify-content-between align-items-center">
-            <div className="toast-body">{error.message}</div>
-            <button
-              type="button"
-              class="btn-close btn-close-white m-3 "
-            ></button>
-          </div>
-        </div>
-      ) : (
-        Boolean(Object.keys(data).length) && (
+    <div className="container-fluid register-container m-0 p-4 ">
+      {
+        isErrorOpen && (
           <div
-            className="card d-inline-block shadow-lg align-items-center text-white bg-success float-end"
+            className="error-alert card d-inline-block shadow-lg align-items-center text-white bg-danger"
             role="alert"
             aria-live="assertive"
             aria-atomic="true"
           >
             <div className="d-flex justify-content-between align-items-center">
-              <div className="toast-body">{data.message}</div>
+              <div className="toast-body">{error.message}</div>
               <button
                 type="button"
                 class="btn-close btn-close-white m-3 "
+                onClick={() => {
+                  setErrorOpen(false);
+                }}
               ></button>
             </div>
           </div>
         )
-      )}
+        // : (
+        //   Boolean(Object.keys(data).length) && (
+        //     <div
+        //       className="card d-inline-block shadow-lg align-items-center text-white bg-success float-end"
+        //       role="alert"
+        //       aria-live="assertive"
+        //       aria-atomic="true"
+        //     >
+        //       <div className="d-flex justify-content-between align-items-center">
+        //         <div className="toast-body">{data.message}</div>
+        //         <button
+        //           type="button"
+        //           class="btn-close btn-close-white m-3 "
+        //         ></button>
+        //       </div>
+        //     </div>
+        //   )
+        // )
+      }
       <div className="card  register w-50 mx-auto p-2 px-3">
         <div className="card-body">
           <div className="card-title">
