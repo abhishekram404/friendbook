@@ -50,7 +50,7 @@ export const userReducer = (initialState = { error: {}, data: {} }, action) => {
           ...initialState.data,
           isUserLoggedIn: false,
         },
-        error: {},
+        error: { message: "User not logged in." },
       };
 
     default:

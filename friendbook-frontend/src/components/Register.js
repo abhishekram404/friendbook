@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import "../styles/register.scss";
 import { send_register_request } from "../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
-
+import history from "../history";
+import { send_login_request } from "../redux/actions/userActions";
 export default function Register() {
   const dispatch = useDispatch();
-
+  const location = useLocation();
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -21,6 +22,7 @@ export default function Register() {
 
   const [showPassword, setShowPassword] = useState(false);
   const { error, data } = useSelector((state) => state.user);
+  const { isUserLoggedIn } = data;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +36,14 @@ export default function Register() {
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      history.push(
+        location.state?.prevLocation ? location.state?.prevLocation : "/"
+      );
+    }
+  });
 
   return (
     <div className="container-fluid register-container m-0 p-4">
