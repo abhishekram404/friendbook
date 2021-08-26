@@ -2,7 +2,15 @@
 .register-container {
   background-color: $platinum;
   height: 100%;
-  .register {
+  position: relative;
+  .error-alert {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    z-index: 100;
+  }
+  .register,
+  .login {
     .card-body {
       form {
         .buttons {

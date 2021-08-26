@@ -10,6 +10,8 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [isErrorOpen, setErrorOpen] = useState(false);
+
   const { error, data } = useSelector((state) => state.user);
 
   const { isUserLoggedIn } = data;
@@ -33,12 +35,17 @@ export default function Login() {
       );
     }
   });
+  useEffect(() => {
+    if (Boolean(Object.keys(error).length)) {
+      setErrorOpen(true);
+    }
+  }, [error]);
 
   return (
     <div className="container-fluid register-container m-0 p-4">
-      {Boolean(Object.keys(error).length) && (
+      {isErrorOpen && (
         <div
-          className="card d-inline-block shadow-lg align-items-center text-white bg-danger float-end"
+          className="error-alert card d-inline-block shadow-lg align-items-center text-white bg-danger float-end"
           role="alert"
           aria-live="assertive"
           aria-atomic="true"
@@ -48,6 +55,9 @@ export default function Login() {
             <button
               type="button"
               class="btn-close btn-close-white m-3 "
+              onClick={() => {
+                setErrorOpen(false);
+              }}
             ></button>
           </div>
         </div>
