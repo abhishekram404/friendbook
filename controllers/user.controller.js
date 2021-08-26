@@ -115,7 +115,7 @@ exports.register = async (req, res) => {
       secure: false,
       maxAge: process.env.MAX_AGE,
     });
-    res.cookie("isAuth", true, {
+    res.cookie("isUserLoggedIn", true, {
       secure: false,
       httpOnly: false,
       maxAge: process.env.MAX_AGE,
@@ -123,6 +123,8 @@ exports.register = async (req, res) => {
     res.status(201).send({
       error: {},
       response: {
+        isUserLoggedIn: true,
+
         status: 201,
         message: "User registered successfully.",
         userId: user._id,
@@ -198,7 +200,7 @@ exports.login = async (req, res) => {
       httpOnly: true,
       maxAge: process.env.MAX_AGE,
     });
-    res.cookie("isAuth", true, {
+    res.cookie("isUserLoggedIn", true, {
       secure: false,
       httpOnly: false,
       maxAge: process.env.MAX_AGE,
@@ -206,12 +208,16 @@ exports.login = async (req, res) => {
     res.status(201).send({
       error: {},
       response: {
+        isUserLoggedIn: true,
+
         userId: foundUser._id,
       },
     });
   } catch (err) {
     res.status(500).send({
       error: {
+        isUserLoggedIn: false,
+
         status: 500,
         message: err.message,
         detail: "Something went wrong !!! \n Please try again.",
@@ -224,10 +230,12 @@ exports.login = async (req, res) => {
 exports.logout = async (req, res) => {
   try {
     res.clearCookie("jwt");
-    res.clearCookie("isAuth");
+    res.clearCookie("isUserLoggedIn");
     res.status(200).send({
       error: {},
       response: {
+        isUserLoggedIn: false,
+
         status: 200,
         message: "Logout successful.",
         detail: "Thanks for using FriendBook 💜",
@@ -236,6 +244,7 @@ exports.logout = async (req, res) => {
   } catch (err) {
     res.status(500).send({
       error: {
+        isUserLoggedIn: false,
         status: 500,
         message: err.message,
         detail: "Something went wrong !!! \n Please try again.",
