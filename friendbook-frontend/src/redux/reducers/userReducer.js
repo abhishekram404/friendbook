@@ -53,6 +53,39 @@ export const userReducer = (initialState = { error: {}, data: {} }, action) => {
         error: { message: "User not logged in." },
       };
 
+    case "CLEAR_GLOBAL_STATE":
+      return {
+        data: { isUserLoggedIn: false },
+        error: {},
+      };
+
+    default:
+      return initialState;
+  }
+};
+
+export const userInfoReducer = (
+  initialState = { info: {}, error: {} },
+  action
+) => {
+  switch (action.type) {
+    case "USER_INFO_FETCHED":
+      return {
+        ...initialState,
+        info: action.payload,
+        error: {},
+      };
+    case "USER_INFO_NOT_FETCHED":
+      return {
+        ...initialState,
+        info: {},
+        error: action.payload,
+      };
+    case "CLEAR_GLOBAL_STATE":
+      return {
+        info: {},
+        error: {},
+      };
     default:
       return initialState;
   }

@@ -18,7 +18,6 @@ const auth = async (req, res, next) => {
         },
       });
     }
-
     req.authenticatedUser = user;
     next();
   } catch (err) {

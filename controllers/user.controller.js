@@ -127,7 +127,6 @@ exports.register = async (req, res) => {
 
         status: 201,
         message: "User registered successfully.",
-        userId: user._id,
       },
     });
   } catch (err) {
@@ -209,8 +208,6 @@ exports.login = async (req, res) => {
       error: {},
       response: {
         isUserLoggedIn: true,
-
-        userId: foundUser._id,
       },
     });
   } catch (err) {
@@ -245,24 +242,6 @@ exports.logout = async (req, res) => {
     res.status(500).send({
       error: {
         isUserLoggedIn: false,
-        status: 500,
-        message: err.message,
-        detail: "Something went wrong !!! \n Please try again.",
-      },
-      response: {},
-    });
-  }
-};
-
-exports.user = async (req, res) => {
-  try {
-    const foundUser = await User.findById(req.authenticatedUser._id).select(
-      "-password"
-    );
-    return res.send(foundUser);
-  } catch (err) {
-    res.status(500).send({
-      error: {
         status: 500,
         message: err.message,
         detail: "Something went wrong !!! \n Please try again.",

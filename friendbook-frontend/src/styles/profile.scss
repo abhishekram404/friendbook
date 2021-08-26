@@ -1,0 +1,142 @@
+@import "./global.scss";
+
+.profile-container {
+  background-color: $platinum;
+  width: 90% !important;
+  .row {
+    > .main-column {
+      .profile {
+        margin: 20px auto;
+        background-color: $white;
+        border-radius: 10px;
+        overflow: hidden;
+        hr {
+          margin: 0;
+        }
+        .row {
+          overflow: visible;
+          .cover-cont {
+            overflow: visible;
+            width: 100%;
+            padding: 0;
+            .cover {
+              width: 100%;
+            }
+          }
+          .user-details {
+            * {
+              display: flex;
+              align-items: center;
+            }
+            .full-name {
+              letter-spacing: 1px;
+            }
+            .bio {
+              font-size: 1.3rem;
+            }
+            .about-item {
+              * {
+                font-size: 1.1rem;
+                color: rgb(49, 49, 49);
+              }
+            }
+          }
+        }
+        .avatar-row {
+          max-height: 70px;
+          .avatar-cont {
+            max-height: 70px;
+            z-index: 1000;
+            // position: relative;
+            // max-height: 50px !important; // position: relative;
+            // @include flex-center;
+            // display: flex;
+            // justify-content: center;
+            // position: absolute;
+            // top: -50%;
+            .avatar {
+              transform: translateY(-50%);
+              z-index: 10000;
+              //   position: absolute;
+              //   top: 100%;
+            }
+          }
+        }
+      }
+      .posts {
+        background-color: $white;
+        border-radius: 10px;
+      }
+    }
+
+    .others-column {
+      //   height: 200vh;
+      //   overflow-y: scroll;
+      //   position: sticky;
+      //   top: 0;
+      .about,
+      .photos-section,
+      .friends-section {
+        background-color: $white;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 20px auto;
+        hr {
+          margin-top: 0px;
+          margin-bottom: 5px;
+        }
+        .about-item {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .photos-section {
+        .photos {
+          width: 300px;
+          margin: 0;
+          padding: 0;
+          display: grid;
+          grid-template-columns: repeat(3, minmax(120px, 1fr));
+          gap: 8px;
+          img {
+            // height: 120px;
+            max-width: 130px;
+            min-width: 120px;
+            max-height: 130px;
+            object-fit: cover;
+          }
+        }
+      }
+      .friends-section {
+        background-color: $white;
+        .friend {
+          display: flex;
+          align-items: flex-start;
+          background-color: $white;
+          .friend-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.profile,
+.posts,
+.photos-section,
+.about,
+.create-post,
+.friends-section {
+  margin: 20px auto;
+  border: 0.5px solid rgba($color: $primaryColorLight, $alpha: 0.3);
+  border-radius: 10px;
+  box-shadow: 2px 3px 5px $lightGrey;
+}
+
+.icon {
+  color: rgb(77, 77, 77);
+}

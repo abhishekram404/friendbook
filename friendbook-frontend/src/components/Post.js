@@ -53,7 +53,7 @@ export default function Post() {
     //   <hr />
     // </>
     <>
-      <div className="post card my-4 pb-0 shadow-sm">
+      <div className="post card my-4 mx-auto pb-0">
         <div className="card-body mb-0 pb-0">
           <div className="card-title">
             <img

@@ -89,6 +89,11 @@ export const logout = () => {
         type: "LOGOUT_SUCCESS",
         payload: response,
       });
+
+      dispatch({
+        type: "CLEAR_GLOBAL_STATE",
+      });
+
       history.push("/login");
     } catch (err) {
       dispatch({

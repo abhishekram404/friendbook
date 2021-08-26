@@ -1,6 +1,8 @@
+@import "./styles/global.scss";
 .App {
   overflow-x: hidden;
   height: 100vh;
+  background-color: $platinum;
 }
 
 ::-webkit-scrollbar {
