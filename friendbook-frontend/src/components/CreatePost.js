@@ -1,7 +1,9 @@
 import React from "react";
 import ImageIcon from "@material-ui/icons/Image";
 import "../styles/createPost.scss";
+import { useSelector } from "react-redux";
 export default function CreatePost() {
+  const { fullName } = useSelector((state) => state.userInfo.info);
   return (
     <>
       <div className="create-post bg-light mx-0  my-3">
@@ -11,7 +13,9 @@ export default function CreatePost() {
           <textarea
             type="text"
             className="w-100 mb-3 p-2"
-            placeholder="What's on your mind?"
+            placeholder={`What's on your mind, ${
+              fullName && (fullName ? fullName?.split(" ")[0] : "")
+            }?`}
             rows="5"
           ></textarea>
 

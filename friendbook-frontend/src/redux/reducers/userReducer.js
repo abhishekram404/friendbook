@@ -64,7 +64,10 @@ export const userReducer = (initialState = { error: {}, data: {} }, action) => {
   }
 };
 
-export const userInfoReducer = (initialState = {}, action) => {
+export const userInfoReducer = (
+  initialState = { info: {}, error: {} },
+  action
+) => {
   switch (action.type) {
     case "USER_INFO_FETCHED":
       return {
