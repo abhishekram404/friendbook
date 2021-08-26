@@ -58,15 +58,6 @@ export default function Profile() {
             <h1>Posts</h1>
             <hr />
             <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
           </div>
         </div>
         <div className="col-4 others-column ">
