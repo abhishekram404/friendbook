@@ -5,7 +5,12 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
 import WcIcon from "@material-ui/icons/Wc";
 import EditIcon from "@material-ui/icons/Edit";
+import InfoIcon from "@material-ui/icons/Info";
+import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
+import PeopleIcon from "@material-ui/icons/People";
+import CakeIcon from "@material-ui/icons/Cake";
 import CreatePost from "./CreatePost";
+
 import Post from "./Post";
 export default function Profile() {
   return (
@@ -25,7 +30,7 @@ export default function Profile() {
             <div className="row px-3 avatar-row">
               <div className="col-2 avatar-cont">
                 <img
-                  src="https://via.placeholder.com/150/0000FF"
+                  src="https://i.pravatar.cc/300"
                   className="avatar rounded img-thumbnail"
                   alt=""
                 />
@@ -40,8 +45,11 @@ export default function Profile() {
                   <span>
                     A self taught programmer who loves to make things work.
                   </span>
-                  <EditIcon className="text-primary mx-2" />
                 </div>
+                <button className="btn btn-light shadow-sm mb-3 ">
+                  <EditIcon className="text-primary mx-2" />
+                  Edit profile
+                </button>
               </div>
             </div>
           </div>
@@ -64,6 +72,7 @@ export default function Profile() {
         <div className="col-4 others-column ">
           <AboutSection />
           <PhotosSection />
+          <FriendsSection />
         </div>
       </div>
     </div>
@@ -72,21 +81,24 @@ export default function Profile() {
 
 const AboutSection = () => {
   return (
-    <div className="about  p-3">
-      <h2>About</h2>
+    <div className="about p-3">
+      <h2>
+        About <InfoIcon className="icon" />{" "}
+      </h2>
       <hr />
       <AboutItem info="Balkumari Lalitpur, Nepal" icon={HomeIcon} />
       <AboutItem info="+977 98000111222" icon={PhoneIcon} />
       <AboutItem info="abhishekram@gmail.com" icon={EmailIcon} />
       <AboutItem info="Male" icon={WcIcon} />
+      <AboutItem info="26 Oct 1967" icon={CakeIcon} />
     </div>
   );
 };
 
 const AboutItem = ({ icon: Icon, info }) => {
   return (
-    <div className=".about-item mt-3">
-      <Icon className="me-3 about-icons" />
+    <div className="about-item mt-3">
+      <Icon className="me-3 about-icons icon" />
       <span>{info}</span>
     </div>
   );
@@ -95,7 +107,9 @@ const AboutItem = ({ icon: Icon, info }) => {
 const PhotosSection = () => {
   return (
     <div className="photos-section p-3">
-      <h2>Photos</h2>
+      <h2>
+        Photos <PhotoLibraryIcon className="icon" />{" "}
+      </h2>
       <hr />
       <div className="photos">
         <img src="https://picsum.photos/200/300" alt="" />
@@ -105,6 +119,31 @@ const PhotosSection = () => {
         <img src="https://picsum.photos/200/300" alt="" />
         <img src="https://picsum.photos/200/300" alt="" />
       </div>
+    </div>
+  );
+};
+
+const FriendsSection = () => {
+  return (
+    <div className="friends-section p-3">
+      <h2>
+        Friends <PeopleIcon className="icon" />{" "}
+      </h2>
+      <hr />
+      <Friend />
+      <Friend />
+      <Friend />
+      <Friend />
+      <Friend />
+    </div>
+  );
+};
+
+const Friend = () => {
+  return (
+    <div className="friend my-3 shadow-sm p-2 rounded">
+      <img className="me-3 friend-avatar" src="https://i.pravatar.cc/300" />
+      <span className=" fs-5">Manoj Bastakoti</span>
     </div>
   );
 };

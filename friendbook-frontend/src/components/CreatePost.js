@@ -8,11 +8,11 @@ export default function CreatePost() {
     <>
       <div className="create-post container mx-auto mx-0  my-3">
         <h2 className="h2 pb-0">Create Post</h2>
-        <hr />
+        {/* <hr /> */}
         <form action="#">
           <textarea
             type="text"
-            className="w-100 mb-3 p-2"
+            className="w-100 mb-3 mt-2 p-3"
             placeholder={`What's on your mind, ${
               fullName && (fullName ? fullName?.split(" ")[0] : "")
             }?`}

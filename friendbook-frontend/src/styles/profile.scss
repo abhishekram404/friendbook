@@ -43,9 +43,9 @@
           }
         }
         .avatar-row {
-          max-height: 100px;
+          max-height: 70px;
           .avatar-cont {
-            max-height: 100px;
+            max-height: 70px;
             z-index: 1000;
             // position: relative;
             // max-height: 50px !important; // position: relative;
@@ -75,7 +75,8 @@
       //   position: sticky;
       //   top: 0;
       .about,
-      .photos-section {
+      .photos-section,
+      .friends-section {
         background-color: $white;
         border-radius: 10px;
         overflow: hidden;
@@ -83,6 +84,10 @@
         hr {
           margin-top: 0px;
           margin-bottom: 5px;
+        }
+        .about-item {
+          display: flex;
+          align-items: center;
         }
       }
 
@@ -103,6 +108,19 @@
           }
         }
       }
+      .friends-section {
+        background-color: $white;
+        .friend {
+          display: flex;
+          align-items: flex-start;
+          background-color: $white;
+          .friend-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+        }
+      }
     }
   }
 }
@@ -111,8 +129,14 @@
 .posts,
 .photos-section,
 .about,
-.create-post {
+.create-post,
+.friends-section {
   margin: 20px auto;
-  border: 1px solid $lightGrey;
+  border: 0.5px solid rgba($color: $primaryColorLight, $alpha: 0.3);
+  border-radius: 10px;
   box-shadow: 2px 3px 5px $lightGrey;
+}
+
+.icon {
+  color: rgb(77, 77, 77);
 }
