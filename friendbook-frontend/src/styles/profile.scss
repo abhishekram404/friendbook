@@ -106,3 +106,13 @@
     }
   }
 }
+
+.profile,
+.posts,
+.photos-section,
+.about,
+.create-post {
+  margin: 20px auto;
+  border: 1px solid $lightGrey;
+  box-shadow: 2px 3px 5px $lightGrey;
+}
