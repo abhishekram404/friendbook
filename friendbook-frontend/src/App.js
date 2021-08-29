@@ -11,12 +11,13 @@ import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/global.scss";
 import { useDispatch } from "react-redux";
-import { fetch_user_info } from "./redux/actions/userActions";
+import { check_is_logged_in } from "./redux/actions/userActions";
+
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetch_user_info());
+    dispatch(check_is_logged_in());
   });
 
   return (

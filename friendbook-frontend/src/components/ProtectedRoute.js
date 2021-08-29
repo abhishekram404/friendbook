@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 export default function ProtectedRoute({ component: Component, ...rest }) {
-  const { isUserLoggedIn } = useSelector((state) => state.user);
+  const { isUserLoggedIn } = useSelector((state) => state.user.data);
 
   return (
     <Route

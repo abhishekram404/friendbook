@@ -1,84 +1,91 @@
-export const userReducer = (
-  initialState = { isUserLoggedIn: false, error: {}, info: {} },
-  action
-) => {
+export const userReducer = (initialState = { error: {}, data: {} }, action) => {
   switch (action.type) {
     case "REGISTER_SUCCESSFUL":
       return {
         ...initialState,
         error: {},
-        info: action.payload,
-        isUserLoggedIn: action.isUserLoggedIn,
+        data: action.payload,
       };
     case "REGISTER_FAILED":
       return {
         ...initialState,
-        info: {},
+        data: {},
         error: action.payload,
-        isUserLoggedIn: action.isUserLoggedIn,
       };
     case "LOGIN_SUCCESSFUL":
       return {
         ...initialState,
         error: {},
-        info: action.payload,
-        isUserLoggedIn: action.isUserLoggedIn,
+        data: action.payload,
       };
     case "LOGIN_FAILED":
       return {
         ...initialState,
-        info: {},
+        data: {},
         error: action.payload,
-        isUserLoggedIn: action.isUserLoggedIn,
       };
     case "LOGOUT_SUCCESS":
       return {
         ...initialState,
         error: {},
-        info: action.payload,
-        isUserLoggedIn: action.isUserLoggedIn,
+        data: action.payload,
       };
     case "LOGOUT_FAILED":
       return {
-        info: {},
+        data: {},
         error: action.payload,
-        isUserLoggedIn: action.isUserLoggedIn,
       };
 
     case "LOGGED_IN":
       return {
-        info: action.payload,
-        isUserLoggedIn: action.isUserLoggedIn,
+        data: {
+          ...initialState.data,
+          isUserLoggedIn: true,
+        },
         error: {},
       };
     case "NOT_LOGGED_IN":
       return {
-        info: action.payload,
-        isUserLoggedIn: action.isUserLoggedIn,
+        data: {
+          ...initialState.data,
+          isUserLoggedIn: false,
+        },
         error: { message: "User not logged in." },
       };
 
+    case "CLEAR_GLOBAL_STATE":
+      return {
+        data: { isUserLoggedIn: false },
+        error: {},
+      };
+
+    default:
+      return initialState;
+  }
+};
+
+export const userInfoReducer = (
+  initialState = { info: {}, error: {} },
+  action
+) => {
+  switch (action.type) {
     case "USER_INFO_FETCHED":
       return {
-        isUserLoggedIn: action.isUserLoggedIn,
+        ...initialState,
         info: action.payload,
         error: {},
       };
     case "USER_INFO_NOT_FETCHED":
       return {
         ...initialState,
-        isUserLoggedIn: action.isUserLoggedIn,
         info: {},
         error: action.payload,
       };
-
     case "CLEAR_GLOBAL_STATE":
       return {
         info: {},
-        isUserLoggedIn: false,
         error: {},
       };
-
     default:
       return initialState;
   }

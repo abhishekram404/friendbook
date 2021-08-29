@@ -21,8 +21,6 @@ exports.register = async (req, res) => {
           message: error.details[0].message,
           detail: "The form data is invalid.",
         },
-        isUserLoggedIn: false,
-
         response: {},
       });
 
@@ -48,8 +46,6 @@ exports.register = async (req, res) => {
           message: "Username must not contain spaces.",
           detail: "Try using a one-word, lowercase username.",
         },
-        isUserLoggedIn: false,
-        response: {},
       });
     }
 
@@ -60,8 +56,6 @@ exports.register = async (req, res) => {
           message: "Password too short",
           detail: "Try using a password of at least 6 characters long",
         },
-        isUserLoggedIn: false,
-        response: {},
       });
     }
 
@@ -73,8 +67,6 @@ exports.register = async (req, res) => {
           detail:
             "The password entered in both the password fields must be the same.",
         },
-        isUserLoggedIn: false,
-
         response: {},
       });
     }
@@ -90,7 +82,6 @@ exports.register = async (req, res) => {
           detail:
             "Please login using the existing email or use a different one. \n Or try using a different username.",
         },
-        isUserLoggedIn: false,
         response: {},
       });
     }
@@ -118,6 +109,7 @@ exports.register = async (req, res) => {
         expiresIn: process.env.MAX_AGE,
       }
     );
+
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: false,
@@ -125,14 +117,16 @@ exports.register = async (req, res) => {
     });
     res.cookie("isUserLoggedIn", true, {
       secure: false,
-      httpOnly: true,
+      httpOnly: false,
       maxAge: process.env.MAX_AGE,
     });
     res.status(201).send({
       error: {},
-      isUserLoggedIn: true,
       response: {
-        info: user,
+        isUserLoggedIn: true,
+
+        status: 201,
+        message: "User registered successfully.",
       },
     });
   } catch (err) {
@@ -142,8 +136,6 @@ exports.register = async (req, res) => {
         message: err.message,
         detail: "Something went wrong !!! \n Please try again.",
       },
-      isUserLoggedIn: false,
-
       response: {},
     });
   }
@@ -160,15 +152,12 @@ exports.login = async (req, res) => {
           message: error.details[0].message,
           detail: "The form data is invalid.",
         },
-        isUserLoggedIn: false,
         response: {},
       });
 
     const { email, password } = await req.body;
 
-    const foundUser = await User.findOne({
-      email: email.trim().toLowerCase(),
-    });
+    const foundUser = await User.findOne({ email: email.trim().toLowerCase() });
 
     if (!foundUser) {
       return res.status(404).send({
@@ -177,7 +166,6 @@ exports.login = async (req, res) => {
           message: "Wrong email/password",
           detail: "Sit back and try to remember your email/password.",
         },
-        isUserLoggedIn: false,
         response: {},
       });
     }
@@ -191,8 +179,6 @@ exports.login = async (req, res) => {
           message: "Wrong email/password",
           detail: "Sit back and try to remember your email/password.",
         },
-        isUserLoggedIn: false,
-
         response: {},
       });
     }
@@ -208,7 +194,6 @@ exports.login = async (req, res) => {
       }
     );
 
-    console.log(foundUser);
     res.cookie("jwt", token, {
       secure: false,
       httpOnly: true,
@@ -221,19 +206,19 @@ exports.login = async (req, res) => {
     });
     res.status(201).send({
       error: {},
-      isUserLoggedIn: true,
       response: {
-        info: foundUser,
+        isUserLoggedIn: true,
       },
     });
   } catch (err) {
     res.status(500).send({
       error: {
+        isUserLoggedIn: false,
+
         status: 500,
         message: err.message,
         detail: "Something went wrong !!! \n Please try again.",
       },
-      isUserLoggedIn: false,
       response: {},
     });
   }
@@ -245,17 +230,22 @@ exports.logout = async (req, res) => {
     res.clearCookie("isUserLoggedIn");
     res.status(200).send({
       error: {},
-      isUserLoggedIn: false,
-      response: {},
+      response: {
+        isUserLoggedIn: false,
+
+        status: 200,
+        message: "Logout successful.",
+        detail: "Thanks for using FriendBook 💜",
+      },
     });
   } catch (err) {
     res.status(500).send({
       error: {
+        isUserLoggedIn: false,
         status: 500,
         message: err.message,
         detail: "Something went wrong !!! \n Please try again.",
       },
-      isUserLoggedIn: false,
       response: {},
     });
   }
