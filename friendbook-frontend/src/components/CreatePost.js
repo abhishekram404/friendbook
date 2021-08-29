@@ -3,16 +3,16 @@ import ImageIcon from "@material-ui/icons/Image";
 import "../styles/createPost.scss";
 import { useSelector } from "react-redux";
 export default function CreatePost() {
-  const { fullName } = useSelector((state) => state.userInfo.info);
+  const { fullName } = useSelector((state) => state.user.info);
   return (
     <>
       <div className="create-post container mx-auto mx-0  my-3">
         <h2 className="h2 pb-0">Create Post</h2>
-        <hr />
+        {/* <hr /> */}
         <form action="#">
           <textarea
             type="text"
-            className="w-100 mb-3 p-2"
+            className="w-100 mb-3 mt-2 p-3"
             placeholder={`What's on your mind, ${
               fullName && (fullName ? fullName?.split(" ")[0] : "")
             }?`}

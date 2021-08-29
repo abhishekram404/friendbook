@@ -12,9 +12,9 @@ export default function Login() {
   });
   const [isErrorOpen, setErrorOpen] = useState(false);
 
-  const { error, data } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.user);
 
-  const { isUserLoggedIn } = data;
+  const { isUserLoggedIn } = useSelector((state) => state.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +54,7 @@ export default function Login() {
             <div className="toast-body">{error.message}</div>
             <button
               type="button"
-              class="btn-close btn-close-white m-3 "
+              className="btn-close btn-close-white m-3 "
               onClick={() => {
                 setErrorOpen(false);
               }}

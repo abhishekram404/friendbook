@@ -64,7 +64,7 @@ export default function Register() {
               <div className="toast-body">{error.message}</div>
               <button
                 type="button"
-                class="btn-close btn-close-white m-3 "
+                className="btn-close btn-close-white m-3 "
                 onClick={() => {
                   setErrorOpen(false);
                 }}
@@ -84,7 +84,7 @@ export default function Register() {
         //         <div className="toast-body">{data.message}</div>
         //         <button
         //           type="button"
-        //           class="btn-close btn-close-white m-3 "
+        //           className="btn-close btn-close-white m-3 "
         //         ></button>
         //       </div>
         //     </div>

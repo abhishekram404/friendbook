@@ -1,17 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import LeftSidebar from "./LeftSidebar";
 import "../styles/layout.scss";
 import RightSidebar from "./RightSidebar";
 import Newsfeed from "./Newsfeed";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { fetch_user_info } from "../redux/actions/userInfoActions";
 export default function Layout() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetch_user_info());
-  }, []);
-
   return (
     <>
       <div className="layout">
