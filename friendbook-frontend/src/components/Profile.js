@@ -10,9 +10,13 @@ import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import PeopleIcon from "@material-ui/icons/People";
 import CakeIcon from "@material-ui/icons/Cake";
 import CreatePost from "./CreatePost";
-
+import { useSelector, useDispatch } from "react-redux";
 import Post from "./Post";
 export default function Profile() {
+  const { info } = useSelector((state) => state.user);
+
+  const { fullName, usename, gender, dob, email } = info;
+
   return (
     <div className="profile-container container  p-4">
       <div className="row">
@@ -40,7 +44,7 @@ export default function Profile() {
 
             <div className="row px-3">
               <div className="col user-details">
-                <div className="full-name h2 fw-bolder my-3">Abhishek Ram</div>
+                <div className="full-name h2 fw-bolder my-3">{fullName}</div>
                 <div className="bio my-3">
                   <span>
                     A self taught programmer who loves to make things work.

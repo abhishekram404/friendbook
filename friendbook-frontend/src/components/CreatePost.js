@@ -3,7 +3,7 @@ import ImageIcon from "@material-ui/icons/Image";
 import "../styles/createPost.scss";
 import { useSelector } from "react-redux";
 export default function CreatePost() {
-  const { fullName } = useSelector((state) => state.userInfo.info);
+  const { fullName } = useSelector((state) => state.user.info);
   return (
     <>
       <div className="create-post container mx-auto mx-0  my-3">

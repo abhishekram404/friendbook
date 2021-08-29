@@ -7,8 +7,9 @@ exports.user = async (req, res) => {
     );
     return res.send({
       error: {},
+      isUserLoggedIn: true,
       response: {
-        userInfo: foundUser,
+        info: foundUser,
       },
     });
   } catch (err) {
@@ -18,6 +19,7 @@ exports.user = async (req, res) => {
         message: err.message,
         detail: "Something went wrong !!! \n Please try again.",
       },
+      isUserLoggedIn: false,
       response: {},
     });
   }

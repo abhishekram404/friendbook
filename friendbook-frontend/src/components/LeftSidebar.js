@@ -7,7 +7,7 @@ import "../styles/sidebarMenuItem.scss";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 export default function LeftSidebar() {
-  const { fullName } = useSelector((state) => state.userInfo.info);
+  const { fullName } = useSelector((state) => state.user.info);
 
   return (
     <div className="leftSidebar px-3">

@@ -12,8 +12,8 @@ import { logout } from "../redux/actions/userActions";
 
 export default function Navbar() {
   const dispatch = useDispatch();
-  const { error, data } = useSelector((state) => state.user);
-  const { isUserLoggedIn } = data;
+  // const { error } = useSelector((state) => state.user);
+  const { isUserLoggedIn } = useSelector((state) => state.user);
 
   const [isOpen, setOpen] = useState(false);
   const toggleOptionsDropdown = () => {
