@@ -118,7 +118,6 @@ exports.register = async (req, res) => {
         expiresIn: process.env.MAX_AGE,
       }
     );
-
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: false,
@@ -133,7 +132,7 @@ exports.register = async (req, res) => {
       error: {},
       isUserLoggedIn: true,
       response: {
-        info: user.select("-password"),
+        info: user,
       },
     });
   } catch (err) {
@@ -167,7 +166,9 @@ exports.login = async (req, res) => {
 
     const { email, password } = await req.body;
 
-    const foundUser = await User.findOne({ email: email.trim().toLowerCase() });
+    const foundUser = await User.findOne({
+      email: email.trim().toLowerCase(),
+    });
 
     if (!foundUser) {
       return res.status(404).send({
@@ -207,6 +208,7 @@ exports.login = async (req, res) => {
       }
     );
 
+    console.log(foundUser);
     res.cookie("jwt", token, {
       secure: false,
       httpOnly: true,
@@ -220,7 +222,9 @@ exports.login = async (req, res) => {
     res.status(201).send({
       error: {},
       isUserLoggedIn: true,
-      response: { info: foundUser.select("-password") },
+      response: {
+        info: foundUser,
+      },
     });
   } catch (err) {
     res.status(500).send({
