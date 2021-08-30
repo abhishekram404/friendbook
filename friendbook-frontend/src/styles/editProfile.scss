@@ -1,0 +1,18 @@
+@import "./global.scss";
+.backdrop {
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  height: 100vh;
+  @include flex-center;
+  .edit-profile {
+    border-radius: 10px;
+    width: 40%;
+    form {
+      border: 1px solid rgba($color: $lightGrey, $alpha: 1);
+      border-radius: 10px;
+      .submit-btn {
+        background-color: $primaryColorLight;
+        color: $white;
+      }
+    }
+  }
+}

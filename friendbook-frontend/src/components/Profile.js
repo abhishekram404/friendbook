@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/profile.scss";
 import HomeIcon from "@material-ui/icons/Home";
 import PhoneIcon from "@material-ui/icons/Phone";
@@ -10,86 +10,84 @@ import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import PeopleIcon from "@material-ui/icons/People";
 import CakeIcon from "@material-ui/icons/Cake";
 import CreatePost from "./CreatePost";
+import EditProfile from "./EditProfile";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import Post from "./Post";
 export default function Profile() {
   const { info } = useSelector((state) => state.user);
-
-  const {
-    fullName,
-    username,
-    gender,
-    dob,
-    email,
-    bio,
-    countryCode,
-    phone,
-    address,
-    country,
-  } = info;
+  const [editMode, setEditMode] = useState(true);
+  const { fullName, username, bio } = info;
 
   return (
-    <div className="profile-container container  p-4">
-      <div className="row">
-        <div className="col-8 main-column">
-          <div className="profile   p-0 ">
-            <div className="row g-0">
-              <div className="col cover-cont g-0">
-                <img
-                  src="https://via.placeholder.com/468x100?text=FriendBook"
-                  alt=""
-                  className="cover w-100"
-                />
-              </div>
-            </div>
-            <div className="row px-4 avatar-row">
-              <div className="col-2 avatar-cont">
-                <img
-                  src="https://i.pravatar.cc/300"
-                  className="avatar rounded img-thumbnail"
-                  alt=""
-                />
-              </div>
-              <div className="col-10"></div>
-            </div>
-
-            <div className="row px-4">
-              <div className="col user-details">
-                <div className="full-name h2 fw-bolder my-3">{fullName}</div>
-                <div className="username h4 text-secondary">{username}</div>
-                <div className="bio my-3">
-                  <span>
-                    {bio ? (
-                      bio
-                    ) : (
-                      <a href="/" className="fw-light link-primary fs-6">
-                        Add bio
-                      </a>
-                    )}
-                  </span>
+    <>
+      {editMode ? (
+        <EditProfile />
+      ) : (
+        <div className="profile-container container  p-4">
+          <div className="row">
+            <div className="col-8 main-column">
+              <div className="profile   p-0 ">
+                <div className="row g-0">
+                  <div className="col cover-cont g-0">
+                    <img
+                      src="https://via.placeholder.com/468x100?text=FriendBook"
+                      alt=""
+                      className="cover w-100"
+                    />
+                  </div>
                 </div>
-                <button className="btn btn-light shadow-sm mb-4 ">
-                  <EditIcon className="text-primary mx-2" />
-                  Edit profile
-                </button>
+                <div className="row px-4 avatar-row">
+                  <div className="col-2 avatar-cont">
+                    <img
+                      src="https://i.pravatar.cc/300"
+                      className="avatar rounded img-thumbnail"
+                      alt=""
+                    />
+                  </div>
+                  <div className="col-10"></div>
+                </div>
+
+                <div className="row px-4">
+                  <div className="col user-details">
+                    <div className="full-name h2 fw-bolder my-3">
+                      {fullName}
+                    </div>
+                    <div className="username h4 text-secondary">{username}</div>
+                    <div className="bio my-3">
+                      <span>
+                        {bio ? (
+                          bio
+                        ) : (
+                          <a href="/" className="fw-light link-primary fs-6">
+                            Add bio
+                          </a>
+                        )}
+                      </span>
+                    </div>
+                    <button className="btn btn-light shadow-sm mb-4 ">
+                      <EditIcon className="text-primary mx-2" />
+                      Edit profile
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <CreatePost />
+              <div className="container posts p-3">
+                <h1>Posts</h1>
+                <hr />
+                <Post />
               </div>
             </div>
-          </div>
-          <CreatePost />
-          <div className="container posts p-3">
-            <h1>Posts</h1>
-            <hr />
-            <Post />
+            <div className="col-4 others-column ">
+              <AboutSection />
+              <PhotosSection />
+              <FriendsSection />
+            </div>
           </div>
         </div>
-        <div className="col-4 others-column ">
-          <AboutSection />
-          <PhotosSection />
-          <FriendsSection />
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
