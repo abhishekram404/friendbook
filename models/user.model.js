@@ -32,6 +32,30 @@ const userSchema = mongoose.Schema({
     maxLength: 300,
     trim: true,
   },
+  bio: {
+    type: String,
+    maxLength: 200,
+    trim: true,
+    required: false,
+  },
+  countryCode: {
+    type: String,
+    maxLength: 3,
+    trim: true,
+  },
+  phone: {
+    type: String,
+    maxLength: 10,
+    trim: true,
+  },
+  address: {
+    type: String,
+    trim: true,
+  },
+  country: {
+    type: String,
+    trim: true,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

@@ -11,11 +11,23 @@ import PeopleIcon from "@material-ui/icons/People";
 import CakeIcon from "@material-ui/icons/Cake";
 import CreatePost from "./CreatePost";
 import { useSelector, useDispatch } from "react-redux";
+import moment from "moment";
 import Post from "./Post";
 export default function Profile() {
   const { info } = useSelector((state) => state.user);
 
-  const { fullName, usename, gender, dob, email } = info;
+  const {
+    fullName,
+    username,
+    gender,
+    dob,
+    email,
+    bio,
+    countryCode,
+    phone,
+    address,
+    country,
+  } = info;
 
   return (
     <div className="profile-container container  p-4">
@@ -31,7 +43,7 @@ export default function Profile() {
                 />
               </div>
             </div>
-            <div className="row px-3 avatar-row">
+            <div className="row px-4 avatar-row">
               <div className="col-2 avatar-cont">
                 <img
                   src="https://i.pravatar.cc/300"
@@ -42,15 +54,22 @@ export default function Profile() {
               <div className="col-10"></div>
             </div>
 
-            <div className="row px-3">
+            <div className="row px-4">
               <div className="col user-details">
                 <div className="full-name h2 fw-bolder my-3">{fullName}</div>
+                <div className="username h4 text-secondary">{username}</div>
                 <div className="bio my-3">
                   <span>
-                    A self taught programmer who loves to make things work.
+                    {bio ? (
+                      bio
+                    ) : (
+                      <a href="/" className="fw-light link-primary fs-6">
+                        Add bio
+                      </a>
+                    )}
                   </span>
                 </div>
-                <button className="btn btn-light shadow-sm mb-3 ">
+                <button className="btn btn-light shadow-sm mb-4 ">
                   <EditIcon className="text-primary mx-2" />
                   Edit profile
                 </button>
@@ -75,17 +94,68 @@ export default function Profile() {
 }
 
 const AboutSection = () => {
+  const { info } = useSelector((state) => state.user);
+  const { address, country, email, phone, countryCode, dob, gender } = info;
+  console.log(address, country);
   return (
     <div className="about p-3">
       <h2>
         About <InfoIcon className="icon" />{" "}
       </h2>
       <hr />
-      <AboutItem info="Balkumari Lalitpur, Nepal" icon={HomeIcon} />
-      <AboutItem info="+977 98000111222" icon={PhoneIcon} />
-      <AboutItem info="abhishekram@gmail.com" icon={EmailIcon} />
-      <AboutItem info="Male" icon={WcIcon} />
-      <AboutItem info="26 Oct 1967" icon={CakeIcon} />
+      <AboutItem
+        info={
+          address && country ? (
+            `${address} ${country}`
+          ) : (
+            <a href="/" className="fw-light link-primary fs-6">
+              Add address
+            </a>
+          )
+        }
+        icon={HomeIcon}
+      />
+      <AboutItem
+        info={
+          countryCode && phone ? (
+            `+${countryCode} ${phone}`
+          ) : (
+            <a href="/" className="fw-light link-primary fs-6">
+              Add phone
+            </a>
+          )
+        }
+        icon={PhoneIcon}
+      />
+      <AboutItem
+        info={
+          email ? (
+            email
+          ) : (
+            <a href="/" className="fw-light link-primary fs-6">
+              Add email
+            </a>
+          )
+        }
+        icon={EmailIcon}
+      />
+      <AboutItem info={gender} icon={WcIcon} />
+      <AboutItem
+        info={
+          dob ? (
+            moment(dob).format("ll")
+          ) : (
+            <a href="/" className="fw-light link-primary fs-6">
+              Add DOB
+            </a>
+          )
+        }
+        icon={CakeIcon}
+      />
+      {/* <button className="btn btn-sm btn-light shadow-sm mt-3 ">
+        <EditIcon className="text-primary mx-2" />
+        Edit info
+      </button> */}
     </div>
   );
 };
