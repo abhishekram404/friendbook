@@ -230,9 +230,9 @@ export default function Register() {
           </form>
           <hr />
           Already have an account?{" "}
-          <a href="/login" className="mx-3">
+          <Link to="/login" className="mx-3">
             Login here
-          </a>
+          </Link>
         </div>
       </div>
     </div>

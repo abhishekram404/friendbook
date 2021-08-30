@@ -36,7 +36,6 @@ export default function Navbar() {
                 <AccountCircleIcon />
               </Link>
               <button
-                href="/"
                 className="nav-link btn mx-3"
                 onClick={toggleOptionsDropdown}
               >

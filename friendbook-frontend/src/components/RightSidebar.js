@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/sidebarMenuItem.scss";
 import "../styles/rightSidebar.scss";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 export default function RightSidebar() {
   const users = [
     { name: "Abhishek", active: true, activeTime: null },
@@ -38,7 +39,10 @@ export default function RightSidebar() {
 const RightSidebarChatMenuItem = ({ user }) => {
   const { name, active, activeTime } = user;
   return (
-    <a href="/" className="links text-dark my-3  bg-light text-start shadow-sm">
+    <Link
+      to="/"
+      className="links text-dark my-3  bg-light text-start shadow-sm"
+    >
       <img
         src="https://ui-avatars.com/api/?background=random"
         alt=""
@@ -51,6 +55,6 @@ const RightSidebarChatMenuItem = ({ user }) => {
         </small>
       </div>
       <span className={clsx("active-dot", active ? "online" : null)}></span>
-    </a>
+    </Link>
   );
 };

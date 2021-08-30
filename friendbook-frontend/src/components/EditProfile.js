@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import CountrySelect from "react-bootstrap-country-select";
 import "../styles/editProfile.scss";
-export default function EditProfile() {
+export default function EditProfile(props) {
   const [changePasswordExpanded, setChangePasswordExpanded] = useState(true);
 
   const [name, setName] = useState("");
@@ -12,9 +12,18 @@ export default function EditProfile() {
   const [country, setCountry] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const form = useRef(null);
   return (
-    <div className="backdrop">
-      <div className="edit-profile card p-4">
+    <div
+      className="backdrop position-absolute w-100"
+      onClick={(e) => {
+        if (!e.target.classList.contains("backdrop")) {
+          return;
+        }
+        props.setEditMode(false);
+      }}
+    >
+      <div className="edit-profile card p-4" ref={form}>
         <h2 className="mb-3">Edit profile </h2>
         <form action="#" className="p-3">
           <div className="mb-3">
