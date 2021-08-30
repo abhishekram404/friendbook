@@ -1,18 +1,44 @@
 import React, { useState, useRef } from "react";
 import CountrySelect from "react-bootstrap-country-select";
 import "../styles/editProfile.scss";
+import { useSelector, useDispatch } from "react-redux";
 export default function EditProfile(props) {
+  const { fullName, bio, address, countryCode, phone, country } = useSelector(
+    (state) => state.user.info
+  );
+
+  const [formData, setFormData] = useState({
+    fullName: fullName || "",
+    bio: bio || "",
+    address: address || "",
+    countryCode: countryCode || "",
+    phone: phone || "",
+    country: country || "",
+    password: "",
+    confirmPassword: "",
+  });
+
   const [changePasswordExpanded, setChangePasswordExpanded] = useState(true);
 
-  const [name, setName] = useState("");
-  const [bio, setBio] = useState("");
-  const [address, setAddress] = useState("");
-  const [countryCode, setCountryCode] = useState("");
-  const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const form = useRef(null);
+  // const [name, setName] = useState("");
+  // const [bio, setBio] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [countryCode, setCountryCode] = useState("");
+  // const [phone, setPhone] = useState("");
+  // const [country, setCountry] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div
       className="backdrop position-absolute w-100"
@@ -23,52 +49,24 @@ export default function EditProfile(props) {
         props.setEditMode(false);
       }}
     >
-      <div className="edit-profile card p-4" ref={form}>
+      <div className="edit-profile card p-4">
         <h2 className="mb-3">Edit profile </h2>
-        <form action="#" className="p-3">
+        <form action="#" className="p-3" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="name" className="mb-1">
               Name
             </label>
             <input
               type="text"
-              name="name"
+              name="fullName"
               id="name"
+              onChange={handleChange}
+              value={formData.fullName}
               className="form-control"
               placeholder="Your name here..."
             />
           </div>
 
-          {/* <InputSetField
-            label="Name"
-            id="name"
-            name="name"
-            placeholder="Enter your name here..."
-          />
-          <InputSetField
-            label="Bio"
-            id="bio"
-            name="bio"
-            placeholder="Something that describes you..."
-          />
-          <InputSetField
-            label="Address"
-            id="address"
-            name="address"
-            placeholder="Place where you live..."
-          />
-          <InputSetField
-            label="Address"
-            id="address"
-            name="address"
-            placeholder="Place where you live..."
-          />
-          <InputSetField
-            label="Address"
-            id="address"
-            name="address"
-            placeholder="Place where you live..."
-          /> */}
           <div className="mb-3">
             <label htmlFor="bio" className="mb-1">
               Bio
@@ -78,6 +76,8 @@ export default function EditProfile(props) {
               name="bio"
               id="bio"
               className="form-control"
+              onChange={handleChange}
+              value={formData.bio}
               placeholder="Something about you..."
             />
           </div>
@@ -90,6 +90,8 @@ export default function EditProfile(props) {
               name="address"
               id="address"
               className="form-control"
+              onChange={handleChange}
+              value={formData.address}
               placeholder="Place where you live..."
             />
           </div>
@@ -104,6 +106,9 @@ export default function EditProfile(props) {
                   id="countryCode"
                   className="form-control"
                   placeholder="Country code"
+                  name="countryCode"
+                  onChange={handleChange}
+                  value={formData.countryCode}
                 />
               </div>
               <div className="phone-cont col-9">
@@ -112,6 +117,8 @@ export default function EditProfile(props) {
                   name="phone"
                   id="phone"
                   className="form-control"
+                  onChange={handleChange}
+                  value={formData.phone}
                   placeholder="Enter your phone number here..."
                 />
               </div>
@@ -121,11 +128,21 @@ export default function EditProfile(props) {
             <label htmlFor="country" className="mb-1">
               Country
             </label>
-            <CountrySelect
+            {/* <CountrySelect
               id="country"
               value={country}
               onChange={setCountry}
+              name="country"
               throwInvalidValueError={true}
+              
+              placeholder="Search your country name here..."
+            /> */}
+            <input
+              id="country"
+              value={formData.country}
+              onChange={handleChange}
+              name="country"
+              className="form-control"
               placeholder="Search your country name here..."
             />
           </div>
@@ -154,6 +171,9 @@ export default function EditProfile(props) {
                   type="text"
                   id="password"
                   className="form-control"
+                  onChange={handleChange}
+                  value={formData.password}
+                  name="password"
                   placeholder="Enter your new password here..."
                 />
               </div>
@@ -163,8 +183,11 @@ export default function EditProfile(props) {
                 </label>
                 <input
                   type="text"
+                  name="confirmPassword"
                   id="confirm-password"
                   className="form-control"
+                  onChange={handleChange}
+                  value={formData.confirmPassword}
                   placeholder="Enter your new password again..."
                 />
               </div>
@@ -178,28 +201,3 @@ export default function EditProfile(props) {
     </div>
   );
 }
-
-const InputSetField = ({
-  name,
-  className,
-  type = "text",
-  id,
-  placeholder,
-  label,
-  ...rest
-}) => {
-  return (
-    <div className="mb-3">
-      <label htmlFor={id} className="mb-1">
-        {label}
-      </label>
-      <input
-        type={type}
-        name={name}
-        id={id}
-        className="form-control"
-        placeholder={placeholder}
-      />
-    </div>
-  );
-};
