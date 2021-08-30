@@ -6,7 +6,6 @@ import "../styles/register.scss";
 import { send_register_request } from "../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import history from "../history";
-import { send_login_request } from "../redux/actions/userActions";
 export default function Register() {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -22,8 +21,7 @@ export default function Register() {
   const [isErrorOpen, setErrorOpen] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
-  const { error, data } = useSelector((state) => state.user);
-  const { isUserLoggedIn } = data;
+  const { error, isUserLoggedIn } = useSelector((state) => state.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -97,8 +97,6 @@ exports.register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // console.log(hashedPassword);
-    // return;
     const user = await User.create({
       fullName,
       username: username.toLowerCase(),
@@ -106,6 +104,11 @@ exports.register = async (req, res) => {
       gender,
       dob,
       password: hashedPassword,
+      bio: "",
+      countryCode: "",
+      phone: "",
+      address: "",
+      country: "",
     });
 
     const token = await jwt.sign(

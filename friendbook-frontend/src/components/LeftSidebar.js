@@ -18,10 +18,10 @@ export default function LeftSidebar() {
         <AccountCircleIcon className="icon" />{" "}
         <span>{fullName ? fullName : "Profile"}</span>
       </LeftSidebarMenuItem>
-      <LeftSidebarMenuItem>
+      <LeftSidebarMenuItem to="/friends">
         <PeopleIcon className="icon" /> <span>Friends</span>
       </LeftSidebarMenuItem>
-      <LeftSidebarMenuItem>
+      <LeftSidebarMenuItem to="/photos">
         <PhotoLibraryIcon className="icon" />
         <span>Photos</span>
       </LeftSidebarMenuItem>
