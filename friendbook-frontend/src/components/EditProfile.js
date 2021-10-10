@@ -5,7 +5,7 @@ import { send_user_info_update_request } from "../redux/actions/userActions";
 export default function EditProfile(props) {
   const dispatch = useDispatch();
   const { fullName, bio, address, countryCode, phone, country } = useSelector(
-    (state) => state.user.info
+    (state) => state.user.info || { fullName: "", username: "", bio: "" }
   );
 
   const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ export default function EditProfile(props) {
     confirmPassword: "",
   });
 
-  const [changePasswordMode, setChangePasswordMode] = useState(true);
+  const [changePasswordMode, setChangePasswordMode] = useState(false);
 
   // const [name, setName] = useState("");
   // const [bio, setBio] = useState("");
@@ -49,12 +49,23 @@ export default function EditProfile(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(send_user_info_update_request());
+
+    dispatch(
+      send_user_info_update_request({
+        ...formData,
+        mode: "default",
+      })
+    );
   };
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    dispatch(send_user_info_update_request());
+    dispatch(
+      send_user_info_update_request({
+        ...passwordChangeFormData,
+        mode: "password",
+      })
+    );
   };
 
   return (
@@ -80,7 +91,7 @@ export default function EditProfile(props) {
                 id="password"
                 className="form-control"
                 onChange={handlePasswordField}
-                value={changePasswordMode.password}
+                value={passwordChangeFormData.password}
                 name="password"
                 placeholder="Enter your new password here..."
               />
@@ -95,7 +106,7 @@ export default function EditProfile(props) {
                 id="confirm-password"
                 className="form-control"
                 onChange={handlePasswordField}
-                value={changePasswordMode.confirmPassword}
+                value={passwordChangeFormData.confirmPassword}
                 placeholder="Enter your new password again..."
               />
             </div>

@@ -1,5 +1,9 @@
 export const userReducer = (
-  initialState = { isUserLoggedIn: false, error: {}, info: {} },
+  initialState = {
+    isUserLoggedIn: false,
+    error: {},
+    info: { fullName: "", username: "", bio: "" },
+  },
   action
 ) => {
   switch (action.type) {
@@ -68,13 +72,13 @@ export const userReducer = (
       return {
         ...initialState,
         isUserLoggedIn: action.isUserLoggedIn,
-        info: {},
+        info: { fullName: "", username: "", bio: "" },
         error: action.payload,
       };
 
     case "CLEAR_GLOBAL_STATE":
       return {
-        info: {},
+        info: { fullName: "", username: "", bio: "" },
         isUserLoggedIn: false,
         error: {},
       };

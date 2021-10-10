@@ -12,7 +12,7 @@ export default function Login() {
   });
   const [isErrorOpen, setErrorOpen] = useState(false);
 
-  const { error } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.user || {});
 
   const { isUserLoggedIn } = useSelector((state) => state.user);
 
@@ -39,7 +39,7 @@ export default function Login() {
     if (Boolean(Object.keys(error).length)) {
       setErrorOpen(true);
     }
-  }, [error]);
+  });
 
   return (
     <div className="container-fluid register-container m-0 p-4">

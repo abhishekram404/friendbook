@@ -14,7 +14,12 @@ dotenv.config();
 
 mongoose.connect(
   process.env.MONGO_LOCAL_URI,
-  { useUnifiedTopology: true, useNewUrlParser: true },
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  },
   () => {
     console.log("Connected to DB");
   }

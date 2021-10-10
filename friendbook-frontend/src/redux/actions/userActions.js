@@ -195,9 +195,27 @@ const user_info_not_fetched = (isUserLoggedIn, error) => {
 
 export const send_user_info_update_request = (formData) => {
   return async (dispatch) => {
-    const { data } = await axios.put("/user/update", {
-      hello: "world",
-    });
-    console.log(data);
+    try {
+      const { data } = await axios.put("/user/update", {
+        data: formData,
+      });
+      const { error, response, isUserLoggedIn } = await data;
+
+      if (Object.keys(error).length) {
+        console.log(error.message);
+        return;
+      }
+
+      dispatch(user_info_fetched(isUserLoggedIn, response.detail));
+    } catch (err) {
+      console.log(err?.response?.data?.error);
+      return;
+      // dispatch(
+      //   user_info_not_fetched(
+      //     err?.response?.data?.isUserLoggedIn,
+      //     err?.response?.data?.error
+      //   )
+      // );
+    }
   };
 };

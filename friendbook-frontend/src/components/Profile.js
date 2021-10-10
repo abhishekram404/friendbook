@@ -15,9 +15,10 @@ import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import Post from "./Post";
 export default function Profile() {
-  const { info } = useSelector((state) => state.user);
+  const { fullName, username, bio } = useSelector(
+    (state) => state.user.info || { fullName: "", username: "", bio: "" }
+  );
   const [editMode, setEditMode] = useState(true);
-  const { fullName, username, bio } = info;
 
   return (
     <>
@@ -94,8 +95,19 @@ export default function Profile() {
 }
 
 const AboutSection = ({ setEditMode }) => {
-  const { info } = useSelector((state) => state.user);
-  const { address, country, email, phone, countryCode, dob, gender } = info;
+  const { address, country, email, phone, countryCode, dob, gender } =
+    useSelector(
+      (state) =>
+        state.user.info || {
+          address: "",
+          country: "",
+          email: "",
+          phone: "",
+          countryCode: "",
+          dob: "",
+          gender: "",
+        }
+    );
   return (
     <div className="about p-3">
       <h2>
@@ -105,7 +117,7 @@ const AboutSection = ({ setEditMode }) => {
       <AboutItem
         info={
           address && country ? (
-            `${address} ${country}`
+            `${address}, ${country}`
           ) : (
             <span
               className="fw-light link-primary fs-6  text-decoration-underline"
@@ -173,7 +185,7 @@ const AboutSection = ({ setEditMode }) => {
 
 const AboutItem = ({ icon: Icon, info }) => {
   return (
-    <div className="about-item mt-3">
+    <div className="about-item mt-3" title={info}>
       <Icon className="me-3 about-icons icon" />
       <span>{info}</span>
     </div>
