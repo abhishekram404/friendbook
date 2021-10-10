@@ -109,10 +109,10 @@ export default function Login() {
           </form>
           <hr />
           Don't have an account?{" "}
-          <a href="/register" className="mx-3 ">
+          <Link to="/register" className="mx-3 ">
             {" "}
             Register here
-          </a>
+          </Link>
         </div>
       </div>
     </div>

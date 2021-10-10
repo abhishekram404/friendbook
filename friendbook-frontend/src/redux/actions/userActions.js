@@ -192,3 +192,12 @@ const user_info_not_fetched = (isUserLoggedIn, error) => {
     isUserLoggedIn: isUserLoggedIn,
   };
 };
+
+export const send_user_info_update_request = (formData) => {
+  return async (dispatch) => {
+    const { data } = await axios.put("/user/update", {
+      hello: "world",
+    });
+    console.log(data);
+  };
+};

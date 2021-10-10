@@ -6,7 +6,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import ShareIcon from "@material-ui/icons/Share";
-import Skeleton from "react-loading-skeleton";
+import { Link } from "react-router-dom";
 export default function Post() {
   return (
     // <>
@@ -19,9 +19,9 @@ export default function Post() {
     //           className="avatar rounded-circle "
     //         />
     //         <div className="user-details">
-    //           <a href="/" className="user-name">
+    //           <Link to="/" className="user-name">
     //             Abhishek Ram
-    //           </a>
+    //           </Link>
     //           <div className="privacy">
     //             <PublicIcon className="privacy-icon  me-2" /> Public
     //           </div>
@@ -62,9 +62,9 @@ export default function Post() {
               className="avatar rounded-circle "
             />
             <div className="user-details">
-              <a href="/" className="user-name">
+              <Link to="/" className="user-name">
                 Abhishek Ram
-              </a>
+              </Link>
               <div className="privacy">
                 <PublicIcon className="privacy-icon  me-2" /> Public
               </div>
