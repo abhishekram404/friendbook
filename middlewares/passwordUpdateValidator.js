@@ -1,9 +1,10 @@
 const Joi = require("joi");
 
-module.exports = updateValidator = (data) => {
+module.exports = passwordUpdateValidator = (data) => {
   const schema = Joi.object({
     password: Joi.string().min(6).max(30).required(),
-    confirm_password: Joi.ref("password").required(),
+    confirmPassword: Joi.ref("password"),
+    mode: Joi.string().allow("default", "password"),
   });
   return schema.validate(data);
 };

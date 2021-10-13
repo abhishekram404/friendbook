@@ -205,7 +205,6 @@ export const send_user_info_update_request = (formData) => {
         console.log(error.message);
         return;
       }
-
       dispatch(user_info_fetched(isUserLoggedIn, response.detail));
     } catch (err) {
       console.log(err?.response?.data?.error);
