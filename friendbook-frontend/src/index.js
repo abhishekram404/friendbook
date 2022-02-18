@@ -7,7 +7,11 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:4000/api/";
+const isProduction = process.env.REACT_APP_NODE_ENV === "production";
+
+axios.defaults.baseURL = isProduction
+  ? "https://friendbook-mern.herokuapp.com"
+  : "http://localhost:4000/api/";
 axios.defaults.withCredentials = true;
 
 ReactDOM.render(

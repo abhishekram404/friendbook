@@ -7,12 +7,18 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 dotenv.config();
+const isProduction = process.env.NODE_ENV === "production";
 const app = express();
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(
+  cors({
+    credentials: true,
+    origin: isProduction
+      ? "https://friendbook-mern.herokuapp.com"
+      : "http://localhost:3000",
+  })
+);
 app.use(bodyParser.json());
-
-const isProduction = process.env.NODE_ENV === "production";
 
 require("./utils/dbConnection");
 
