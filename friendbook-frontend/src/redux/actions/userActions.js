@@ -66,7 +66,7 @@ export const send_login_request = (formData) => {
   };
 };
 
-const login_successful = (isUserLoggedIn, info) => {
+export const login_successful = (isUserLoggedIn, info) => {
   return {
     type: "LOGIN_SUCCESSFUL",
     isUserLoggedIn,
@@ -74,7 +74,7 @@ const login_successful = (isUserLoggedIn, info) => {
   };
 };
 
-const login_failed = (isUserLoggedIn, error) => {
+export const login_failed = (isUserLoggedIn, error) => {
   return {
     type: "LOGIN_FAILED",
     payload: error,

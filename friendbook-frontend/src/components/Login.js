@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import history from "../history";
-import { send_login_request } from "../redux/actions/userActions";
+import {
+  login_failed,
+  login_successful,
+  send_login_request,
+} from "../redux/actions/userActions";
+import styles from "../styles/login.module.scss";
+import LoggedInContext from "../utils/context";
+import clsx from "clsx";
+import axios from "axios";
 export default function Login() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -11,14 +19,19 @@ export default function Login() {
     password: "",
   });
   const [isErrorOpen, setErrorOpen] = useState(false);
-
+  const { isUserLoggedIn } = useContext(LoggedInContext);
+  console.log(isUserLoggedIn);
   const { error = {} } = useSelector((state) => state.user);
 
-  const { isUserLoggedIn } = useSelector((state) => state.user);
+  // const { isUserLoggedIn } = useSelector((state) => state.user);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(send_login_request(form));
+    const { data } = await axios.post("/user/login", form);
+    if (data.success) {
+      return dispatch(login_successful());
+    }
+    return dispatch(login_failed());
   };
 
   const handleChange = (e) => {
@@ -62,7 +75,7 @@ export default function Login() {
         </div>
       )}
 
-      <div className="card  register w-50 mx-auto p-2 px-3">
+      <div className={clsx(styles.login, "card  register   mx-auto p-2 px-3")}>
         <div className="card-body">
           <div className="card-title">
             <h2 className="text-center pt-3 ">Login</h2>

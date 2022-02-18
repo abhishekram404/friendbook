@@ -16,6 +16,8 @@ exports.register = async (req, res) => {
 
     if (error)
       return res.status(400).send({
+        success: false,
+
         error: {
           status: 400,
           message: error.details[0].message,
@@ -48,6 +50,7 @@ exports.register = async (req, res) => {
           message: "Username must not contain spaces.",
           detail: "Try using a one-word, lowercase username.",
         },
+        success: false,
         isUserLoggedIn: false,
         response: {},
       });
@@ -61,6 +64,7 @@ exports.register = async (req, res) => {
           detail: "Try using a password of at least 6 characters long",
         },
         isUserLoggedIn: false,
+        success: false,
         response: {},
       });
     }
@@ -74,6 +78,7 @@ exports.register = async (req, res) => {
             "The password entered in both the password fields must be the same.",
         },
         isUserLoggedIn: false,
+        success: false,
 
         response: {},
       });
@@ -91,6 +96,7 @@ exports.register = async (req, res) => {
             "Please login using the existing email or use a different one. \n Or try using a different username.",
         },
         isUserLoggedIn: false,
+        success: false,
         response: {},
       });
     }
@@ -132,6 +138,7 @@ exports.register = async (req, res) => {
       maxAge: process.env.MAX_AGE,
     });
     res.status(201).send({
+      success: true,
       error: {},
       isUserLoggedIn: true,
       response: {
@@ -146,6 +153,7 @@ exports.register = async (req, res) => {
         detail: "Something went wrong !!! \n Please try again.",
       },
       isUserLoggedIn: false,
+      success: false,
 
       response: {},
     });
@@ -164,6 +172,7 @@ exports.login = async (req, res) => {
           detail: "The form data is invalid.",
         },
         isUserLoggedIn: false,
+        success: false,
         response: {},
       });
 
@@ -181,6 +190,7 @@ exports.login = async (req, res) => {
           detail: "Sit back and try to remember your email/password.",
         },
         isUserLoggedIn: false,
+        success: false,
         response: {},
       });
     }
@@ -195,6 +205,7 @@ exports.login = async (req, res) => {
           detail: "Sit back and try to remember your email/password.",
         },
         isUserLoggedIn: false,
+        success: false,
 
         response: {},
       });
@@ -223,6 +234,7 @@ exports.login = async (req, res) => {
       maxAge: process.env.MAX_AGE,
     });
     res.status(201).send({
+      success: true,
       error: {},
       isUserLoggedIn: true,
       response: {
@@ -231,8 +243,8 @@ exports.login = async (req, res) => {
     });
   } catch (err) {
     res.status(500).send({
+      success: false,
       error: {
-        status: 500,
         message: err.message,
         detail: "Something went wrong !!! \n Please try again.",
       },
@@ -247,12 +259,14 @@ exports.logout = async (req, res) => {
     res.clearCookie("jwt");
     res.clearCookie("isUserLoggedIn");
     res.status(200).send({
+      success: true,
       error: {},
       isUserLoggedIn: false,
       response: {},
     });
   } catch (err) {
     res.status(500).send({
+      success: false,
       error: {
         status: 500,
         message: err.message,
