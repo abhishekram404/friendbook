@@ -6,25 +6,19 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
+dotenv.config();
 const app = express();
 app.use(cookieParser());
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(bodyParser.json());
-dotenv.config();
 
-mongoose.connect(
-  process.env.MONGO_LOCAL_URI,
-  {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  },
-  () => {
-    console.log("Connected to DB");
-  }
-);
+const isProduction = process.env.NODE_ENV === "production";
+
+require("./utils/dbConnection");
 
 app.use("/api/user", userRoute);
 // app.use("/api/", userRoute);
-app.listen(4000);
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+  console.info(`Server started on port ${port}`);
+});

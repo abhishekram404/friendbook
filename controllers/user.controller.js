@@ -10,7 +10,7 @@ exports.all = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   try {
     const { error } = await signupValidator(req.body);
 
