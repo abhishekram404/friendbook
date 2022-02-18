@@ -12,7 +12,7 @@ export default function Login() {
   });
   const [isErrorOpen, setErrorOpen] = useState(false);
 
-  const { error } = useSelector((state) => state.user || {});
+  const { error = {} } = useSelector((state) => state.user);
 
   const { isUserLoggedIn } = useSelector((state) => state.user);
 
@@ -27,19 +27,18 @@ export default function Login() {
       [e.target.name]: e.target.value,
     });
   };
-
+  useEffect(() => {
+    if (Boolean(Object.keys(error).length)) {
+      setErrorOpen(true);
+    }
+  }, [error]);
   useEffect(() => {
     if (isUserLoggedIn) {
       history.push(
         location.state?.prevLocation ? location.state?.prevLocation : "/"
       );
     }
-  });
-  useEffect(() => {
-    if (Boolean(Object.keys(error).length)) {
-      setErrorOpen(true);
-    }
-  });
+  }, []);
 
   return (
     <div className="container-fluid register-container m-0 p-4">
