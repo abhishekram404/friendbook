@@ -14,12 +14,14 @@ import { useDispatch } from "react-redux";
 import { fetch_user_info } from "./redux/actions/userActions";
 import Cookies from "js-cookie";
 import AppContext from "./utils/context";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 function App() {
   const dispatch = useDispatch();
 
   const [isUserLoggedIn] = useState(
     () =>
-      sessionStorage.getItem("isUserLoggedIn") ||
+      sessionStorage.getItem("isUserLoggedIn") === "true" ||
       Cookies.get("isUserLoggedIn") === "true" ||
       false
   );
@@ -38,6 +40,19 @@ function App() {
           <Route path="/register" exact component={Register} />
           <Route path="/login" exact component={Login} />
         </Router>
+        <ToastContainer
+          position="bottom-left"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        >
+          {" "}
+        </ToastContainer>
       </div>
     </AppContext.Provider>
   );

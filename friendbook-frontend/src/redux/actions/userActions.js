@@ -85,7 +85,7 @@ export const login_failed = (isUserLoggedIn, error) => {
 export const logout = () => {
   return async (dispatch) => {
     try {
-      let { data } = await axios.post("/user/logout");
+      let { data } = await axios.get("/user/logout");
       let { error, response, isUserLoggedIn } = data;
       if (Object.keys(error).length !== 0) {
         dispatch({

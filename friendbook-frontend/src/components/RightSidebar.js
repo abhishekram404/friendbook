@@ -21,9 +21,10 @@ export default function RightSidebar() {
     <div className="rightSidebar px-3">
       <div className="title py-2 pt-3 h3 text-center">Chats</div>
 
-      {users.map((user) => {
+      {users.map((user, index) => {
         return (
           <RightSidebarChatMenuItem
+            key={index}
             user={{
               name: user.name,
               active: user.active,

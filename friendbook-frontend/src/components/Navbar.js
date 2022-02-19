@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import HomeIcon from "@material-ui/icons/Home";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -8,17 +8,39 @@ import Brightness2Icon from "@material-ui/icons/Brightness2";
 import "../styles/navbar.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/actions/userActions";
+import { useMutation, useQuery } from "react-query";
+import AppContext from "../utils/context";
+import axios from "axios";
+import { toast } from "react-toastify";
+import history from "../history";
 
 export default function Navbar() {
   const dispatch = useDispatch();
   // const { error } = useSelector((state) => state.user);
-  const { isUserLoggedIn } = useSelector((state) => state.user);
+  const { isUserLoggedIn } = useContext(AppContext);
 
   const [isOpen, setOpen] = useState(false);
   const toggleOptionsDropdown = () => {
     setOpen(!isOpen);
   };
+
+  const { isSuccess, isError, isLoading, data, error, mutate } = useMutation(
+    async () => await axios.get("/user/logout")
+  );
+
+  const logout = async () => {
+    await mutate();
+  };
+
+  if (isSuccess) {
+    sessionStorage.removeItem("isUserLoggedIn");
+    toast.success("Logout successful");
+    return history.push("/login");
+  }
+
+  if (isError) {
+    toast.error("Something went wrong");
+  }
 
   return (
     <>
@@ -80,7 +102,7 @@ export default function Navbar() {
             className="list-group-item py-3"
             role="button"
             onClick={() => {
-              dispatch(logout());
+              logout();
               setOpen(false);
             }}
           >

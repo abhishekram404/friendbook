@@ -1,9 +1,8 @@
 import { Route, Redirect } from "react-router-dom";
-import React from "react";
-import { useSelector } from "react-redux";
-
+import React, { useContext } from "react";
+import AppContext from "../utils/context";
 export default function ProtectedRoute({ component: Component, ...rest }) {
-  const { isUserLoggedIn } = useSelector((state) => state.user);
+  const { isUserLoggedIn } = useContext(AppContext);
 
   return (
     <Route
